@@ -1,0 +1,125 @@
+.sidebar {
+  width: 320px;
+}
+
+.main-content-wrapper {
+  margin-left: 320px;
+}
+
+.content-layout {
+  display: block;
+}
+
+.main-content {
+  max-width: none;
+  width: 100%;
+}
+
+.toc-sidebar {
+  display: none;
+}
+
+.sidebar-header {
+  border-bottom: none;
+}
+
+.sidebar h1 {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 12px;
+}
+
+.site-title,
+.sidebar-brand,
+.sidebar .brand,
+.brand {
+  display: block;
+  font-size: 15px;
+  line-height: 1.2;
+  padding: 8px 12px;
+}
+
+.page-footer {
+  display: none;
+}
+
+.content img,
+.main-content img,
+article img {
+  border: 1px solid rgba(15, 23, 42, 0.16);
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  display: block;
+  height: auto;
+  margin: 18px 0 28px;
+  max-width: 100%;
+}
+
+.guide-image {
+  background: #fff;
+}
+
+.content img.guide-image--small,
+.main-content img.guide-image--small,
+article img.guide-image--small {
+  width: min(320px, 100%);
+}
+
+.content img.guide-image--phone,
+.main-content img.guide-image--phone,
+article img.guide-image--phone {
+  width: min(340px, 100%);
+}
+
+.content img.guide-image--tiny,
+.main-content img.guide-image--tiny,
+article img.guide-image--tiny {
+  width: auto;
+}
+
+.content li,
+.main-content li,
+article li {
+  margin-bottom: 0.35rem;
+}
+
+.content h2,
+.main-content h2,
+article h2 {
+  margin-top: 2rem;
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    width: auto;
+  }
+
+  .main-content-wrapper {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .main-content {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .content img.guide-image,
+  .main-content img.guide-image,
+  article img.guide-image {
+    max-width: none;
+  }
+
+  .content img.guide-image--small,
+  .main-content img.guide-image--small,
+  article img.guide-image--small {
+    width: min(320px, calc(100vw - 48px));
+  }
+
+  .content img.guide-image--phone,
+  .main-content img.guide-image--phone,
+  article img.guide-image--phone {
+    width: min(340px, calc(100vw - 48px));
+  }
+}

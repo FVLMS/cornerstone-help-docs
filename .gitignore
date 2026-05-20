@@ -1,0 +1,11 @@
+node_modules/
+site/
+.DS_Store
+__pycache__/
+*.pyc
+content/
+assets/images/
+assets/images-staged/
+image-upload-staging/
+conversion/qa-contact-sheets/
+conversion/qa-screenshots/

@@ -1,0 +1,45 @@
+source,article,status,category,title,notes
+TipSheets/TipSheets/Cornerstone Tip Sheet - Create Material.docx,docs/content-create-material.md,already_converted_pilot,Pilot,,Reviewed pilot conversion.
+TipSheets/TipSheets/Cornerstone Tip Sheet - Grade Checklists.docx,docs/checklists-grade-checklists.md,already_converted_pilot,Pilot,,Reviewed pilot conversion.
+TipSheets/TipSheets/Cornerstone Tip Sheet - Learning Assignment Tool.docx,docs/admin-learning-assignment-tool.md,already_converted_pilot,Pilot,,Reviewed pilot conversion.
+TipSheets/TipSheets/Cornerstone Tip Sheet - Printing Transcript Report.docx,docs/learner-print-transcript-report.md,already_converted_pilot,Pilot,,Reviewed pilot conversion.
+TipSheets/TipSheets/Cornerstone Tip Sheet - Test Creation.docx,docs/content-create-test.md,already_converted_pilot,Pilot,,Reviewed pilot conversion.
+TipSheets/TipSheets/Cornerstone Tip Sheet - Add User.docx,docs/admin-add-external-user.md,converted,Admin Guides,Add an External User,
+TipSheets/TipSheets/Auto Assign Dashboard Tip Sheet.docx,docs/admin-auto-assign-dashboard.md,converted,Admin Guides,Auto Assign Dashboard,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Edit Due Dates.docx,docs/admin-edit-due-dates.md,converted,Admin Guides,Edit Due Dates,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Remove Training.docx,docs/admin-remove-training.md,converted,Admin Guides,Remove Training,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Add a Note (Curriculum).docx,docs/content-add-curriculum-note.md,converted,Content Creation,Add a Curriculum Note,
+TipSheets/TipSheets/Cornerstone Content Development Guidelines.docx,docs/content-development-guidelines.md,converted,Content Creation,Content Development Guidelines,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Materials_No Signature Required.docx,docs/content-materials-no-signature-required.md,converted,Content Creation,Create Materials with No Signature Required,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Creating a Video Lesson.docx,docs/content-create-video-lesson.md,converted,Content Creation,Create a Video Lesson,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Adding Learners to a Session Roster.docx,docs/sessions-add-learners-to-roster.md,converted,Events and Sessions,Add Learners to a Session Roster,Near-duplicate of Add a Learner to a Session Roster; kept as a separate review page.
+TipSheets/TipSheets/Cornerstone Tip Sheet - Adding Learner to Session Roster.docx,docs/sessions-add-learner-to-roster.md,converted,Events and Sessions,Add a Learner to a Session Roster,Near-duplicate of Adding Learners to a Session Roster; kept as a separate review page.
+TipSheets/TipSheets/Cornerstone Tip Sheet - Edit Session (Date Time Location).docx,docs/sessions-edit-date-time-location.md,converted,Events and Sessions,"Edit Session Date, Time, or Location",
+TipSheets/TipSheets/Cornerstone Tip Sheet - Marking Session Attendance.docx,docs/sessions-mark-attendance.md,converted,Events and Sessions,Mark Session Attendance,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Interest Tracking for ITL Admins.docx,docs/sessions-interest-tracking-ilt-admins.md,converted,Events and Sessions,Track Interest as an ILT Admin,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Interest Tracking for Sessions.docx,docs/sessions-interest-tracking.md,converted,Events and Sessions,Track Interest for Sessions,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Withdraw from a Session.docx,docs/sessions-withdraw-from-session.md,converted,Events and Sessions,Withdraw from a Session,
+TipSheets/TipSheets/Cornerstone Tip Sheet - How to Access Previously Completed Training.docx,docs/learner-access-completed-training.md,converted,Learner Guides,Access Previously Completed Training,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Enroll in Basic Life Support.docx,docs/learner-enroll-basic-life-support.md,converted,Learner Guides,Enroll in Basic Life Support,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Enroll in Safety Always.docx,docs/learner-enroll-safety-always.md,converted,Learner Guides,Enroll in Safety Always,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Lippincott Professional Development CE Certificate.docx,docs/learner-lippincott-ce-certificate.md,converted,Learner Guides,Lippincott Professional Development CE Certificate,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Printing Certificate (Learner).docx,docs/learner-print-certificate.md,converted,Learner Guides,Print a Certificate as a Learner,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Printing Certificate from a Curriculum.docx,docs/learner-print-certificate-from-curriculum.md,converted,Learner Guides,Print a Certificate from a Curriculum,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Remove Self Requested Training.docx,docs/learner-remove-self-requested-training.md,converted,Learner Guides,Remove Self-Requested Training,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Requesting (self-enroll).docx,docs/learner-request-training-self-enroll.md,converted,Learner Guides,Request Training or Self-Enroll,
+TipSheets/TipSheets/Pharmacy Certification Upload Tip Sheet.docx,docs/learner-pharmacy-certification-upload.md,converted,Learner Guides,Upload a Pharmacy Certification,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Mobile App.docx,docs/learner-mobile-app.md,converted,Learner Guides,Use the Cornerstone Mobile App,
+TipSheets/TipSheets/Cornerstone Tip Sheet - View Training Details.docx,docs/learner-view-training-details.md,converted,Learner Guides,View Training Details,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Manager Dashboard.docx,docs/manager-dashboard.md,converted,Manager Guides,Manager Dashboard,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Ongoing Competency 2025 Learning Assignment Tool.docx,docs/ongoing-competency-2025-learning-assignment-tool.md,converted,Ongoing Competency,Ongoing Competency 2025 Learning Assignment Tool,Year-specific source retained for review.
+TipSheets/TipSheets/Cornerstone Tip Sheet - Ongoing Competency 2025 Review.docx,docs/ongoing-competency-2025-review.md,converted,Ongoing Competency,Ongoing Competency 2025 Review,Year-specific source retained for review.
+TipSheets/TipSheets/Cornerstone Tip Sheet - Common Reports.pdf,docs/reports-common-reports.md,converted_pdf_text_only,Reports and Transcripts,Common Reports,PDF-only source converted from extracted text; screenshots were not available from a Word source.
+TipSheets/TipSheets/Cornerstone Tip Sheet - Printing Certificate (Admin).docx,docs/reports-print-certificate-admin.md,converted,Reports and Transcripts,Print a Certificate as an Admin,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Printing POCT Transcript Report.docx,docs/reports-print-poct-transcript.md,converted,Reports and Transcripts,Print a POCT Transcript Report,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Run Standard Reports.docx,docs/reports-run-standard-reports.md,converted,Reports and Transcripts,Run Standard Reports,
+TipSheets/TipSheets/Cornerstone Tip Sheet - How to Run 'Time Spent' Report.docx,docs/reports-time-spent.md,converted,Reports and Transcripts,Run the Time Spent Report,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Edit Validation Details.docx,docs/checklists-edit-validation-details.md,converted,Tests and Checklists,Edit Validation Details,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Grading Free Form Essay.docx,docs/tests-grade-free-form-essay.md,converted,Tests and Checklists,Grade a Free Form Essay,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Review Test Results.docx,docs/tests-review-test-results.md,converted,Tests and Checklists,Review Test Results,
+TipSheets/TipSheets/Cornerstone Tip Sheet - Tests_AutoPass Option.docx,docs/tests-autopass-option.md,converted,Tests and Checklists,Use the Test AutoPass Option,
+TipSheets/TipSheets/01_Cornerstone Tip Sheet - TEMPLATE.docx,,template_skipped,Template,Cornerstone Tip Sheet Template,Template source skipped.
