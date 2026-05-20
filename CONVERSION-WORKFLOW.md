@@ -66,4 +66,4 @@ Use `docs/content-create-material.md` as the first completed example. Future con
 - Navigation/sidebar title is clear.
 - Search terms are present in the title, description, and first paragraph.
 - Local staged image paths are acceptable for review but must not remain before final public publish.
-- `rg -n "assets/images-staged" docs` returns no matches before the GitHub Pages push.
+- `rg -n "image-upload-staging|assets/images-staged" docs` returns no matches before the GitHub Pages push.

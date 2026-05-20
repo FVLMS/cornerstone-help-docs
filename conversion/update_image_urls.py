@@ -102,7 +102,7 @@ def rewrite_docs(docs_dir: Path, mapping: dict[str, str], apply: bool) -> tuple[
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--apply", action="store_true", help="Write changes to docs. Omit for a dry run.")
-    parser.add_argument("--base-url", help="Hosted base URL that mirrors assets/images-staged structure.")
+    parser.add_argument("--base-url", help="Hosted base URL that mirrors image-upload-staging structure.")
     parser.add_argument("--docs-dir", default="docs")
     parser.add_argument("--images-dir", default="image-upload-staging")
     parser.add_argument("--manifest", default="conversion/image-manifest.csv")

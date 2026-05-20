@@ -16,7 +16,7 @@ REPO = Path(__file__).resolve().parents[1]
 HELP_ROOT = REPO.parent
 SOURCE_DIR = HELP_ROOT / "TipSheets" / "TipSheets"
 DOCS_DIR = REPO / "docs"
-IMAGE_ROOT = REPO / "assets" / "images-staged"
+IMAGE_ROOT = REPO / "image-upload-staging"
 MANIFEST = REPO / "conversion" / "image-manifest.csv"
 INVENTORY = REPO / "conversion" / "tip-sheet-inventory.csv"
 
@@ -279,8 +279,8 @@ def replace_images(raw: str, media_dir: Path, slug: str, title: str) -> tuple[st
             ext = src.suffix.lower() or ".png"
             dest = image_dir / f"step-{image_index:02d}{ext}"
             shutil.copy2(src, dest)
-        rel = f"../assets/images-staged/{slug}/{dest.name}"
-        manifest_path = f"assets/images-staged/{slug}/{dest.name}"
+        rel = f"../image-upload-staging/{slug}/{dest.name}"
+        manifest_path = f"image-upload-staging/{slug}/{dest.name}"
         images.append(manifest_path)
         alt = html.unescape(alt_match.group(1)).strip() if alt_match else ""
         if not alt or alt.lower().startswith("a screenshot of") or "ai-generated content may be incorrect" in alt.lower():
@@ -388,8 +388,8 @@ def convert_pdf_only(sheet: TipSheet) -> tuple[list[str], dict[str, str]]:
         for index, page_image in enumerate(rendered_pages, start=1):
             dest = image_dir / f"step-{index:02d}.png"
             shutil.copy2(page_image, dest)
-            rel = f"../assets/images-staged/{sheet.slug}/{dest.name}"
-            manifest_path = f"assets/images-staged/{sheet.slug}/{dest.name}"
+            rel = f"../image-upload-staging/{sheet.slug}/{dest.name}"
+            manifest_path = f"image-upload-staging/{sheet.slug}/{dest.name}"
             images.append(manifest_path)
             image_tags.append(f'   <img class="guide-image" src="{rel}" alt="{sheet.title} source page {index}">')
     if not body:
