@@ -273,7 +273,13 @@
       return `${'#'.repeat(Number(tag.slice(1)))} ${inlineMarkdown(node).trim()}`;
     }
 
-    if (tag === 'p') return inlineMarkdown(node).trim();
+    if (tag === 'p') {
+      const hasBlockChild = Array.from(node.children).some((child) =>
+        ['blockquote', 'ol', 'pre', 'table', 'ul'].includes(child.tagName.toLowerCase())
+      );
+
+      return hasBlockChild ? blockChildrenMarkdown(node, depth) : inlineMarkdown(node).trim();
+    }
     if (tag === 'ul') return listMarkdown(node, depth, false);
     if (tag === 'ol') return listMarkdown(node, depth, true);
     if (tag === 'li') return inlineMarkdown(node).trim();
@@ -376,6 +382,96 @@
     if (container && editable.contains(container) && !container.closest('.page-navigation')) {
       savedRange = range.cloneRange();
     }
+  }
+
+  function restoreSelection(editable) {
+    const selection = window.getSelection();
+    editable.focus();
+
+    if (!savedRange || !selection) return;
+
+    selection.removeAllRanges();
+    selection.addRange(savedRange);
+  }
+
+  function cleanupEditableMarkup(editable) {
+    const blockTags = ['blockquote', 'ol', 'pre', 'table', 'ul'];
+
+    for (const paragraph of Array.from(editable.querySelectorAll('p'))) {
+      const blockChildren = Array.from(paragraph.children).filter((child) =>
+        blockTags.includes(child.tagName.toLowerCase())
+      );
+
+      if (!blockChildren.length) continue;
+
+      for (const child of blockChildren) {
+        paragraph.before(child);
+      }
+
+      if (!paragraph.textContent.trim() && paragraph.children.length === 0) {
+        paragraph.remove();
+      }
+    }
+  }
+
+  function runEditorCommand(editable, status, command, value) {
+    restoreSelection(editable);
+    document.execCommand(command, false, value || null);
+    cleanupEditableMarkup(editable);
+    saveSelection(editable);
+    status.textContent = 'Formatting updated';
+  }
+
+  function buildFormatControls(editable, status) {
+    const controls = createElement('div', 'markdown-editor-format-controls');
+    controls.setAttribute('aria-label', 'Formatting controls');
+
+    const formatSelect = createElement('select', 'markdown-editor-format-select');
+    formatSelect.setAttribute('aria-label', 'Block style');
+
+    [
+      ['p', 'Paragraph'],
+      ['h1', 'Heading 1'],
+      ['h2', 'Heading 2'],
+      ['h3', 'Heading 3']
+    ].forEach(([value, label]) => {
+      const option = createElement('option', null, label);
+      option.value = value;
+      formatSelect.append(option);
+    });
+
+    const buttons = [
+      ['B', 'Bold', 'bold'],
+      ['I', 'Italic', 'italic'],
+      ['- List', 'Bulleted list', 'insertUnorderedList'],
+      ['1. List', 'Numbered list', 'insertOrderedList']
+    ].map(([text, label, command]) => {
+      const button = createElement('button', 'markdown-editor-format-button', text);
+      button.type = 'button';
+      button.setAttribute('aria-label', label);
+      button.addEventListener('mousedown', (event) => event.preventDefault());
+      button.addEventListener('click', () => runEditorCommand(editable, status, command));
+      return button;
+    });
+
+    const link = createElement('button', 'markdown-editor-format-button', 'Link');
+    link.type = 'button';
+    link.addEventListener('mousedown', (event) => event.preventDefault());
+    link.addEventListener('click', () => {
+      restoreSelection(editable);
+      const href = window.prompt('Link URL');
+      if (!href) return;
+      runEditorCommand(editable, status, 'createLink', href);
+    });
+
+    formatSelect.addEventListener('mousedown', () => restoreSelection(editable));
+    formatSelect.addEventListener('change', () => {
+      runEditorCommand(editable, status, 'formatBlock', formatSelect.value);
+      formatSelect.value = 'p';
+    });
+
+    controls.append(formatSelect, ...buttons, link);
+    return controls;
   }
 
   function closestInsertionTarget(editable) {
@@ -606,6 +702,7 @@
     toolbar.setAttribute('aria-label', 'Markdown editing controls');
 
     const status = createElement('p', 'markdown-editor-inline-status', `Editing ${fileName}`);
+    const formatControls = buildFormatControls(editable, status);
     const actions = createElement('div', 'markdown-editor-inline-actions');
     const addImage = createElement('button', 'markdown-editor-secondary', 'Add Image');
     const reset = createElement('button', 'markdown-editor-secondary', 'Reset');
@@ -616,7 +713,7 @@
     download.type = 'button';
     exit.type = 'button';
     actions.append(addImage, reset, download, exit);
-    toolbar.append(status, actions);
+    toolbar.append(status, formatControls, actions);
 
     const imagePanel = buildImagePanel(editable, status);
     document.body.append(toolbar, imagePanel.element);

@@ -151,6 +151,34 @@ article h2 {
   gap: 8px;
 }
 
+.markdown-editor-format-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.markdown-editor-format-button,
+.markdown-editor-format-select {
+  background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.2);
+  border-radius: 6px;
+  color: #0f172a;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  min-height: 36px;
+  padding: 7px 10px;
+}
+
+.markdown-editor-format-button[aria-label="Bold"] {
+  font-weight: 900;
+}
+
+.markdown-editor-format-button[aria-label="Italic"] {
+  font-style: italic;
+}
+
 .markdown-editor-target {
   border: 2px solid rgba(14, 165, 233, 0.55);
   border-radius: 8px;
@@ -303,13 +331,22 @@ article h2 {
     justify-content: flex-end;
   }
 
+  .markdown-editor-format-controls {
+    justify-content: stretch;
+  }
+
+  .markdown-editor-format-button,
+  .markdown-editor-format-select {
+    flex: 1;
+  }
+
   .markdown-editor-inline-actions button {
     flex: 1;
   }
 
   .markdown-editor-image-panel {
-    bottom: 154px;
-    max-height: calc(100vh - 176px);
+    bottom: 210px;
+    max-height: calc(100vh - 232px);
     overflow-y: auto;
     width: calc(100vw - 20px);
   }
