@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "docmd dev",
-    "build": "docmd build",
+    "build": "docmd build && node scripts/prepare-editor-sources.js",
     "preview": "npx serve site"
   },
   "dependencies": {

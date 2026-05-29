@@ -89,6 +89,82 @@ article h2 {
   margin-top: 2rem;
 }
 
+.markdown-editor-primary,
+.markdown-editor-secondary {
+  border-radius: 6px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 9px 12px;
+}
+
+.markdown-editor-secondary {
+  background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.2);
+  color: #0f172a;
+}
+
+.markdown-editor-primary {
+  background: #0f172a;
+  border: 1px solid #0f172a;
+  color: #fff;
+}
+
+.markdown-editor-primary:disabled,
+.markdown-editor-secondary:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.markdown-editor-toolbar {
+  align-items: center;
+  background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.16);
+  border-radius: 8px;
+  bottom: 18px;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.22);
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  left: 50%;
+  max-width: min(720px, calc(100vw - 36px));
+  padding: 10px 12px;
+  position: fixed;
+  transform: translateX(-50%);
+  width: max-content;
+  z-index: 1000;
+}
+
+.markdown-editor-inline-status {
+  color: #334155;
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.markdown-editor-inline-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.markdown-editor-target {
+  border: 2px solid rgba(14, 165, 233, 0.55);
+  border-radius: 8px;
+  outline: 0;
+  padding: 18px;
+}
+
+.markdown-editor-target:focus {
+  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.16);
+}
+
+.markdown-editor-target .page-navigation {
+  opacity: 0.65;
+  pointer-events: none;
+}
+
 @media (max-width: 900px) {
   .sidebar {
     width: auto;
@@ -121,5 +197,26 @@ article h2 {
   .main-content img.guide-image--phone,
   article img.guide-image--phone {
     width: min(340px, calc(100vw - 48px));
+  }
+
+  .markdown-editor-toolbar {
+    align-items: stretch;
+    bottom: 10px;
+    flex-direction: column;
+    width: calc(100vw - 20px);
+  }
+
+  .markdown-editor-inline-actions {
+    justify-content: flex-end;
+  }
+
+  .markdown-editor-inline-actions button {
+    flex: 1;
+  }
+}
+
+@media print {
+  .markdown-editor-ui {
+    display: none !important;
   }
 }
