@@ -10,9 +10,14 @@
   if (!sourceUrl) return;
 
   const editableSelector = '.main-content';
+  const imageBaseUrl = 'https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/';
+  const editorClassPrefix = 'markdown-editor-';
+
   let sourceMarkdown = '';
   let originalHtml = '';
   let frontMatter = '';
+  let selectedImage = null;
+  let savedRange = null;
 
   function createElement(tag, className, text) {
     const element = document.createElement(tag);
@@ -43,6 +48,90 @@
       .replace(/[ \t]+\n/g, '\n')
       .replace(/\n{3,}/g, '\n\n')
       .trim();
+  }
+
+  function safeDecode(value) {
+    try {
+      return decodeURIComponent(value);
+    } catch (_error) {
+      return value;
+    }
+  }
+
+  function encodeSharePointPath(value) {
+    return value
+      .split('/')
+      .map((part) => part.trim())
+      .filter(Boolean)
+      .map((part) => encodeURIComponent(safeDecode(part)))
+      .join('/');
+  }
+
+  function cleanPath(value) {
+    return value.trim().replace(/^\/+|\/+$/g, '');
+  }
+
+  function joinImagePath(folder, imageFile) {
+    const cleanFolder = cleanPath(folder);
+    const cleanFile = imageFile.trim().replace(/^\/+/, '');
+
+    if (/^https?:\/\//i.test(cleanFile)) return cleanFile;
+
+    const relativePath = cleanFolder ? `${cleanFolder}/${cleanFile}` : cleanFile;
+    return `${imageBaseUrl}${encodeSharePointPath(relativePath)}`;
+  }
+
+  function imageClassesForSize(size) {
+    const classes = ['guide-image'];
+
+    if (size === 'small') classes.push('guide-image--small');
+    if (size === 'phone') classes.push('guide-image--phone');
+    if (size === 'tiny') classes.push('guide-image--tiny');
+    if (size === 'small-phone') classes.push('guide-image--small', 'guide-image--phone');
+
+    return classes;
+  }
+
+  function imageSizeFromClassList(classList) {
+    const hasSmall = classList.contains('guide-image--small');
+    const hasPhone = classList.contains('guide-image--phone');
+
+    if (hasSmall && hasPhone) return 'small-phone';
+    if (classList.contains('guide-image--tiny')) return 'tiny';
+    if (hasPhone) return 'phone';
+    if (hasSmall) return 'small';
+    return 'normal';
+  }
+
+  function imagePartsFromSrc(src) {
+    const rawSrc = src || '';
+    if (!rawSrc.startsWith(imageBaseUrl)) {
+      return { folder: '', imageFile: rawSrc };
+    }
+
+    const relativePath = rawSrc.slice(imageBaseUrl.length);
+    const parts = relativePath.split('/');
+    const imageFile = safeDecode(parts.pop() || '');
+    const folder = parts.map(safeDecode).join('/');
+
+    return { folder, imageFile };
+  }
+
+  function defaultImageFolder(editable) {
+    const firstImage = editable.querySelector(`img[src^="${imageBaseUrl}"]`);
+    if (firstImage) return imagePartsFromSrc(firstImage.getAttribute('src')).folder;
+    return fileName.replace(/\.md$/i, '');
+  }
+
+  function setSelectedImage(image) {
+    if (selectedImage) selectedImage.classList.remove('markdown-editor-selected-image');
+    selectedImage = image;
+    if (selectedImage) selectedImage.classList.add('markdown-editor-selected-image');
+  }
+
+  function setImageClasses(image, size) {
+    image.className = imageClassesForSize(size).join(' ');
+    if (image === selectedImage) image.classList.add('markdown-editor-selected-image');
   }
 
   function inlineMarkdown(node) {
@@ -83,10 +172,10 @@
   }
 
   function imageMarkdown(node) {
-    const className = node.getAttribute('class');
+    const classNames = Array.from(node.classList).filter((className) => !className.startsWith(editorClassPrefix));
     const src = node.getAttribute('src') || '';
     const alt = node.getAttribute('alt') || '';
-    const classAttr = className ? ` class="${escapeAttribute(className)}"` : '';
+    const classAttr = classNames.length ? ` class="${escapeAttribute(classNames.join(' '))}"` : '';
     return `<img${classAttr} src="${escapeAttribute(src)}" alt="${escapeAttribute(alt)}">`;
   }
 
@@ -251,7 +340,253 @@
     for (const image of editable.querySelectorAll('img')) {
       image.setAttribute('contenteditable', 'false');
       image.setAttribute('draggable', 'false');
+      image.tabIndex = 0;
     }
+  }
+
+  function refreshImageControls(editable, imagePanel) {
+    for (const control of editable.querySelectorAll('.markdown-editor-image-chip')) {
+      control.remove();
+    }
+
+    for (const image of editable.querySelectorAll('img')) {
+      if (image.closest('.page-navigation')) continue;
+
+      const button = createElement('button', 'markdown-editor-image-chip markdown-editor-ui', 'Edit Image');
+      button.type = 'button';
+      button.setAttribute('contenteditable', 'false');
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        imagePanel.openForImage(image);
+      });
+      image.after(button);
+    }
+  }
+
+  function saveSelection(editable) {
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0) return;
+
+    const range = selection.getRangeAt(0);
+    const container = range.commonAncestorContainer.nodeType === Node.ELEMENT_NODE
+      ? range.commonAncestorContainer
+      : range.commonAncestorContainer.parentElement;
+
+    if (container && editable.contains(container) && !container.closest('.page-navigation')) {
+      savedRange = range.cloneRange();
+    }
+  }
+
+  function closestInsertionTarget(editable) {
+    if (selectedImage && editable.contains(selectedImage)) return selectedImage;
+
+    if (savedRange) {
+      const container = savedRange.commonAncestorContainer.nodeType === Node.ELEMENT_NODE
+        ? savedRange.commonAncestorContainer
+        : savedRange.commonAncestorContainer.parentElement;
+      const target = container ? container.closest('img, li, p, h1, h2, h3, h4, h5, h6') : null;
+
+      if (target && editable.contains(target) && !target.closest('.page-navigation')) {
+        return target;
+      }
+    }
+
+    return null;
+  }
+
+  function insertImage(editable, image) {
+    const target = closestInsertionTarget(editable);
+    const navigation = editable.querySelector('.page-navigation');
+
+    if (target && target.tagName.toLowerCase() === 'li') {
+      target.append(document.createTextNode('\n'));
+      target.append(image);
+    } else if (target && editable.contains(target)) {
+      target.after(image);
+    } else if (navigation) {
+      navigation.before(image);
+    } else {
+      editable.append(image);
+    }
+
+    lockNonArticleControls(editable);
+    setSelectedImage(image);
+    image.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function imageFromEvent(event, editable) {
+    if (!(event.target instanceof Element)) return null;
+
+    const image = event.target.closest('img');
+    if (!image || !editable.contains(image) || image.closest('.page-navigation')) {
+      return null;
+    }
+
+    return image;
+  }
+
+  function field(labelText, input) {
+    const wrapper = createElement('label', 'markdown-editor-image-field');
+    const label = createElement('span', null, labelText);
+    wrapper.append(label, input);
+    return wrapper;
+  }
+
+  function buildImagePanel(editable, status) {
+    const panel = createElement('form', 'markdown-editor-image-panel markdown-editor-ui');
+    panel.hidden = true;
+
+    const heading = createElement('p', 'markdown-editor-image-title', 'Image');
+    const folderInput = createElement('input');
+    const fileInput = createElement('input');
+    const altInput = createElement('input');
+    const sizeSelect = createElement('select');
+    const preview = createElement('p', 'markdown-editor-image-preview');
+
+    folderInput.type = 'text';
+    fileInput.type = 'text';
+    altInput.type = 'text';
+    folderInput.placeholder = 'create-material';
+    fileInput.placeholder = 'step-04.png';
+    altInput.placeholder = 'Describe the screenshot';
+
+    [
+      ['normal', 'Normal'],
+      ['small', 'Small'],
+      ['phone', 'Phone'],
+      ['tiny', 'Tiny'],
+      ['small-phone', 'Small phone']
+    ].forEach(([value, label]) => {
+      const option = createElement('option', null, label);
+      option.value = value;
+      sizeSelect.append(option);
+    });
+
+    const fields = createElement('div', 'markdown-editor-image-fields');
+    fields.append(
+      field('Folder', folderInput),
+      field('File', fileInput),
+      field('Alt text', altInput),
+      field('Size', sizeSelect)
+    );
+
+    const actions = createElement('div', 'markdown-editor-image-actions');
+    const apply = createElement('button', 'markdown-editor-primary', 'Apply');
+    const insert = createElement('button', 'markdown-editor-primary', 'Insert Image');
+    const remove = createElement('button', 'markdown-editor-secondary', 'Remove');
+    const close = createElement('button', 'markdown-editor-secondary', 'Close');
+    apply.type = 'button';
+    insert.type = 'button';
+    remove.type = 'button';
+    close.type = 'button';
+    actions.append(apply, insert, remove, close);
+    panel.append(heading, fields, preview, actions);
+
+    function currentSrc() {
+      return joinImagePath(folderInput.value, fileInput.value);
+    }
+
+    function updatePreview() {
+      preview.textContent = currentSrc();
+    }
+
+    function fillFromImage(image) {
+      const parts = imagePartsFromSrc(image.getAttribute('src'));
+      folderInput.value = parts.folder;
+      fileInput.value = parts.imageFile;
+      altInput.value = image.getAttribute('alt') || '';
+      sizeSelect.value = imageSizeFromClassList(image.classList);
+      updatePreview();
+    }
+
+    function openForImage(image) {
+      setSelectedImage(image);
+      heading.textContent = 'Edit image';
+      fillFromImage(image);
+      apply.hidden = false;
+      remove.hidden = false;
+      insert.hidden = true;
+      panel.hidden = false;
+      fileInput.focus();
+    }
+
+    function openForInsert() {
+      setSelectedImage(null);
+      heading.textContent = 'Add image';
+      folderInput.value = defaultImageFolder(editable);
+      fileInput.value = '';
+      altInput.value = '';
+      sizeSelect.value = 'normal';
+      updatePreview();
+      apply.hidden = true;
+      remove.hidden = true;
+      insert.hidden = false;
+      panel.hidden = false;
+      fileInput.focus();
+    }
+
+    function applyToImage(image) {
+      if (!image || !fileInput.value.trim()) return;
+
+      image.setAttribute('src', currentSrc());
+      image.setAttribute('alt', altInput.value.trim());
+      setImageClasses(image, sizeSelect.value);
+      lockNonArticleControls(editable);
+      status.textContent = 'Image updated';
+    }
+
+    folderInput.addEventListener('input', updatePreview);
+    fileInput.addEventListener('input', updatePreview);
+
+    apply.addEventListener('click', () => {
+      applyToImage(selectedImage);
+    });
+
+    insert.addEventListener('click', () => {
+      if (!fileInput.value.trim()) return;
+
+      const image = document.createElement('img');
+      image.setAttribute('src', currentSrc());
+      image.setAttribute('alt', altInput.value.trim());
+      setImageClasses(image, sizeSelect.value);
+      insertImage(editable, image);
+      refreshImageControls(editable, imageApi);
+      status.textContent = 'Image inserted';
+      openForImage(image);
+    });
+
+    remove.addEventListener('click', () => {
+      if (!selectedImage) return;
+
+      const imageControl = selectedImage.nextElementSibling;
+      if (imageControl && imageControl.classList.contains('markdown-editor-image-chip')) {
+        imageControl.remove();
+      }
+      selectedImage.remove();
+      setSelectedImage(null);
+      panel.hidden = true;
+      status.textContent = 'Image removed';
+      editable.focus();
+    });
+
+    close.addEventListener('click', () => {
+      panel.hidden = true;
+      setSelectedImage(null);
+      editable.focus();
+    });
+
+    panel.addEventListener('submit', (event) => {
+      event.preventDefault();
+    });
+
+    const imageApi = {
+      element: panel,
+      openForImage,
+      openForInsert
+    };
+
+    return imageApi;
   }
 
   function buildEditor() {
@@ -272,21 +607,59 @@
 
     const status = createElement('p', 'markdown-editor-inline-status', `Editing ${fileName}`);
     const actions = createElement('div', 'markdown-editor-inline-actions');
+    const addImage = createElement('button', 'markdown-editor-secondary', 'Add Image');
     const reset = createElement('button', 'markdown-editor-secondary', 'Reset');
     const download = createElement('button', 'markdown-editor-primary', 'Download .md');
     const exit = createElement('button', 'markdown-editor-secondary', 'Exit');
+    addImage.type = 'button';
     reset.type = 'button';
     download.type = 'button';
     exit.type = 'button';
-    actions.append(reset, download, exit);
+    actions.append(addImage, reset, download, exit);
     toolbar.append(status, actions);
-    document.body.append(toolbar);
+
+    const imagePanel = buildImagePanel(editable, status);
+    document.body.append(toolbar, imagePanel.element);
+    refreshImageControls(editable, imagePanel);
 
     loadSource(status, download);
 
+    document.addEventListener('selectionchange', () => saveSelection(editable));
+    editable.addEventListener('keyup', () => saveSelection(editable));
+    editable.addEventListener('mouseup', () => saveSelection(editable));
+
+    const openImageFromEvent = (event) => {
+      const image = imageFromEvent(event, editable);
+      if (image) {
+        event.preventDefault();
+        event.stopPropagation();
+        imagePanel.openForImage(image);
+      }
+    };
+
+    editable.addEventListener('pointerdown', openImageFromEvent, true);
+    editable.addEventListener('mousedown', openImageFromEvent, true);
+    editable.addEventListener('click', openImageFromEvent, true);
+
+    editable.addEventListener('keydown', (event) => {
+      const image = imageFromEvent(event, editable);
+      if (image && (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault();
+        imagePanel.openForImage(image);
+      }
+    });
+
+    addImage.addEventListener('click', () => {
+      saveSelection(editable);
+      imagePanel.openForInsert();
+    });
+
     reset.addEventListener('click', () => {
       editable.innerHTML = originalHtml;
+      setSelectedImage(null);
+      imagePanel.element.hidden = true;
       lockNonArticleControls(editable);
+      refreshImageControls(editable, imagePanel);
       status.textContent = `${fileName} reset`;
       editable.focus();
     });
