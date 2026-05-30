@@ -286,6 +286,65 @@ article h2 {
   margin-top: 12px;
 }
 
+.markdown-editor-new-panel {
+  background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.16);
+  border-radius: 8px;
+  bottom: 92px;
+  box-shadow: 0 18px 52px rgba(15, 23, 42, 0.24);
+  left: 50%;
+  max-width: min(980px, calc(100vw - 36px));
+  padding: 14px;
+  position: fixed;
+  transform: translateX(-50%);
+  width: min(980px, calc(100vw - 36px));
+  z-index: 1000;
+}
+
+.markdown-editor-new-panel[hidden] {
+  display: none;
+}
+
+.markdown-editor-new-title {
+  color: #0f172a;
+  font-size: 15px;
+  font-weight: 800;
+  margin: 0 0 10px;
+}
+
+.markdown-editor-new-fields {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr 1.5fr 1fr;
+}
+
+.markdown-editor-new-snippet {
+  background: #f8fafc;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 6px;
+  color: #0f172a;
+  font-family: Consolas, "SFMono-Regular", "Liberation Mono", Menlo, monospace;
+  font-size: 12px;
+  margin: 12px 0;
+  overflow-x: auto;
+  padding: 10px;
+}
+
+.markdown-editor-new-instructions {
+  color: #334155;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.markdown-editor-new-instructions ol {
+  margin: 8px 0 12px;
+  padding-left: 22px;
+}
+
+.markdown-editor-new-instructions li {
+  margin-bottom: 4px;
+}
+
 @media (max-width: 900px) {
   .sidebar {
     width: auto;
@@ -351,7 +410,15 @@ article h2 {
     width: calc(100vw - 20px);
   }
 
-  .markdown-editor-image-fields {
+  .markdown-editor-new-panel {
+    bottom: 210px;
+    max-height: calc(100vh - 232px);
+    overflow-y: auto;
+    width: calc(100vw - 20px);
+  }
+
+  .markdown-editor-image-fields,
+  .markdown-editor-new-fields {
     grid-template-columns: 1fr;
   }
 

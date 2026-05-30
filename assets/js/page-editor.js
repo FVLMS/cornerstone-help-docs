@@ -6,7 +6,8 @@
   if (!script) return;
 
   const sourceUrl = script.getAttribute('data-source');
-  const fileName = script.getAttribute('data-filename') || 'guide.md';
+  const pageFileName = script.getAttribute('data-filename') || 'guide.md';
+  let outputFileName = pageFileName;
   if (!sourceUrl) return;
 
   const editableSelector = '.main-content';
@@ -16,6 +17,7 @@
   let sourceMarkdown = '';
   let originalHtml = '';
   let frontMatter = '';
+  let isNewArticle = params.get('new') === '1';
   let selectedImage = null;
   let savedRange = null;
 
@@ -24,6 +26,29 @@
     if (className) element.className = className;
     if (text) element.textContent = text;
     return element;
+  }
+
+  function slugify(value) {
+    return value
+      .toLowerCase()
+      .trim()
+      .replace(/&/g, ' and ')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .replace(/-{2,}/g, '-');
+  }
+
+  function escapeYaml(value) {
+    return String(value || '').replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+  }
+
+  function buildFrontMatter(title, description) {
+    return [
+      '---',
+      `title: "${escapeYaml(title)}"`,
+      `description: "${escapeYaml(description)}"`,
+      '---'
+    ].join('\n');
   }
 
   function splitFrontMatter(markdown) {
@@ -120,7 +145,7 @@
   function defaultImageFolder(editable) {
     const firstImage = editable.querySelector(`img[src^="${imageBaseUrl}"]`);
     if (firstImage) return imagePartsFromSrc(firstImage.getAttribute('src')).folder;
-    return fileName.replace(/\.md$/i, '');
+    return outputFileName.replace(/\.md$/i, '');
   }
 
   function setSelectedImage(image) {
@@ -313,7 +338,7 @@
     const blob = new Blob([markdown], { type: 'text/markdown;charset=utf-8' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = fileName;
+    link.download = outputFileName;
     document.body.appendChild(link);
     link.click();
     link.remove();
@@ -321,18 +346,18 @@
   }
 
   async function loadSource(status, download) {
-    status.textContent = `Loading ${fileName}...`;
+    status.textContent = `Loading ${outputFileName}...`;
     download.disabled = true;
 
     try {
       const response = await fetch(sourceUrl, { cache: 'no-store' });
       if (!response.ok) {
-        throw new Error(`Unable to load ${fileName}: ${response.status}`);
+        throw new Error(`Unable to load ${outputFileName}: ${response.status}`);
       }
 
       sourceMarkdown = await response.text();
       frontMatter = splitFrontMatter(sourceMarkdown).frontMatter;
-      status.textContent = `Editing ${fileName}`;
+      status.textContent = `Editing ${outputFileName}`;
       download.disabled = false;
     } catch (error) {
       status.textContent = error.message || 'Unable to load source Markdown.';
@@ -685,6 +710,147 @@
     return imageApi;
   }
 
+  function navigationSections() {
+    return Array.from(document.querySelectorAll('.sidebar-nav > ul > li > a .nav-item-title'))
+      .map((node) => node.textContent.trim())
+      .filter((title) => title && title !== 'Home');
+  }
+
+  function newArticleTemplate(title) {
+    return `
+                    <h1>${title}</h1>
+                    <p>Briefly explain what this guide helps the reader do.</p>
+                    <h2>Before You Begin</h2>
+                    <ul>
+                        <li>Add prerequisite access, files, or decisions here.</li>
+                    </ul>
+                    <h2>Steps</h2>
+                    <ol>
+                        <li><p>Write the first action the reader should take.</p></li>
+                        <li><p>Write the next action.</p></li>
+                    </ol>
+                    <h2>Notes</h2>
+                    <ul>
+                        <li>Add support notes, exceptions, or LMS team contact guidance here.</li>
+                    </ul>
+                `;
+  }
+
+  function replaceArticle(editable, html) {
+    editable.innerHTML = html;
+    originalHtml = html;
+    setSelectedImage(null);
+    lockNonArticleControls(editable);
+  }
+
+  function buildNewArticlePanel(editable, status, download, imagePanel) {
+    const panel = createElement('form', 'markdown-editor-new-panel markdown-editor-ui');
+    const heading = createElement('p', 'markdown-editor-new-title', 'New article draft');
+    const fields = createElement('div', 'markdown-editor-new-fields');
+
+    const titleInput = createElement('input');
+    const slugInput = createElement('input');
+    const descriptionInput = createElement('input');
+    const sectionSelect = createElement('select');
+
+    titleInput.type = 'text';
+    slugInput.type = 'text';
+    descriptionInput.type = 'text';
+    titleInput.placeholder = 'Create a Material';
+    slugInput.placeholder = 'content-create-material';
+    descriptionInput.placeholder = 'Short search/SEO description.';
+
+    for (const section of navigationSections()) {
+      const option = createElement('option', null, section);
+      option.value = section;
+      sectionSelect.append(option);
+    }
+
+    if (!sectionSelect.children.length) {
+      const option = createElement('option', null, 'Content Creation');
+      option.value = 'Content Creation';
+      sectionSelect.append(option);
+    }
+
+    fields.append(
+      field('Title', titleInput),
+      field('Filename slug', slugInput),
+      field('Description', descriptionInput),
+      field('Sidebar section', sectionSelect)
+    );
+
+    const navSnippet = createElement('pre', 'markdown-editor-new-snippet');
+    const instructions = createElement('div', 'markdown-editor-new-instructions');
+    instructions.innerHTML = [
+      '<strong>Publish steps after downloading:</strong>',
+      '<ol>',
+      '<li>Save the downloaded file into the repo <code>docs/</code> folder.</li>',
+      '<li>Add the sidebar line below to <code>docmd.config.js</code> under the selected section.</li>',
+      '<li>Commit and push to GitHub. GitHub Actions will rebuild the Pages site.</li>',
+      '<li>If the article uses screenshots, upload those files to the matching SharePoint folder first.</li>',
+      '</ol>'
+    ].join('');
+
+    const close = createElement('button', 'markdown-editor-secondary', 'Close');
+    close.type = 'button';
+
+    panel.append(heading, fields, navSnippet, instructions, close);
+
+    function syncDraft() {
+      const title = titleInput.value.trim() || 'New Help Article';
+      const description = descriptionInput.value.trim() || 'Add a short description for this help article.';
+      const slug = slugify(slugInput.value || title) || 'new-help-article';
+
+      outputFileName = `${slug}.md`;
+      frontMatter = buildFrontMatter(title, description);
+
+      const h1 = editable.querySelector('h1');
+      if (h1) h1.textContent = title;
+
+      navSnippet.textContent = `{ title: '${title.replace(/'/g, "\\'")}', path: '${slug}', icon: 'file-text' },`;
+      status.textContent = `Drafting ${outputFileName}`;
+      download.disabled = false;
+    }
+
+    function startDraft() {
+      isNewArticle = true;
+      const defaultTitle = 'New Help Article';
+      titleInput.value = defaultTitle;
+      slugInput.value = slugify(defaultTitle);
+      descriptionInput.value = 'Add a short description for this help article.';
+      outputFileName = `${slugInput.value}.md`;
+      frontMatter = buildFrontMatter(titleInput.value, descriptionInput.value);
+      replaceArticle(editable, newArticleTemplate(defaultTitle));
+      refreshImageControls(editable, imagePanel);
+      syncDraft();
+      panel.hidden = false;
+      titleInput.focus();
+    }
+
+    titleInput.addEventListener('input', () => {
+      if (!slugInput.dataset.touched) slugInput.value = slugify(titleInput.value);
+      syncDraft();
+    });
+    slugInput.addEventListener('input', () => {
+      slugInput.dataset.touched = 'true';
+      syncDraft();
+    });
+    descriptionInput.addEventListener('input', syncDraft);
+    sectionSelect.addEventListener('change', syncDraft);
+    close.addEventListener('click', () => {
+      panel.hidden = true;
+      editable.focus();
+    });
+    panel.addEventListener('submit', (event) => event.preventDefault());
+
+    panel.hidden = true;
+
+    return {
+      element: panel,
+      startDraft
+    };
+  }
+
   function buildEditor() {
     const editable = document.querySelector(editableSelector);
     if (!editable) return;
@@ -694,32 +860,39 @@
     editable.classList.add('markdown-editor-target');
     editable.setAttribute('contenteditable', 'true');
     editable.setAttribute('spellcheck', 'true');
-    editable.setAttribute('aria-label', `Editable article content for ${fileName}`);
+    editable.setAttribute('aria-label', `Editable article content for ${outputFileName}`);
     lockNonArticleControls(editable);
 
     const toolbar = createElement('div', 'markdown-editor-toolbar markdown-editor-ui');
     toolbar.setAttribute('role', 'region');
     toolbar.setAttribute('aria-label', 'Markdown editing controls');
 
-    const status = createElement('p', 'markdown-editor-inline-status', `Editing ${fileName}`);
+    const status = createElement('p', 'markdown-editor-inline-status', `Editing ${outputFileName}`);
     const formatControls = buildFormatControls(editable, status);
     const actions = createElement('div', 'markdown-editor-inline-actions');
+    const newArticle = createElement('button', 'markdown-editor-secondary', 'New Article');
     const addImage = createElement('button', 'markdown-editor-secondary', 'Add Image');
     const reset = createElement('button', 'markdown-editor-secondary', 'Reset');
     const download = createElement('button', 'markdown-editor-primary', 'Download .md');
     const exit = createElement('button', 'markdown-editor-secondary', 'Exit');
+    newArticle.type = 'button';
     addImage.type = 'button';
     reset.type = 'button';
     download.type = 'button';
     exit.type = 'button';
-    actions.append(addImage, reset, download, exit);
+    actions.append(newArticle, addImage, reset, download, exit);
     toolbar.append(status, formatControls, actions);
 
     const imagePanel = buildImagePanel(editable, status);
-    document.body.append(toolbar, imagePanel.element);
+    const newArticlePanel = buildNewArticlePanel(editable, status, download, imagePanel);
+    document.body.append(toolbar, imagePanel.element, newArticlePanel.element);
     refreshImageControls(editable, imagePanel);
 
-    loadSource(status, download);
+    if (isNewArticle) {
+      newArticlePanel.startDraft();
+    } else {
+      loadSource(status, download);
+    }
 
     document.addEventListener('selectionchange', () => saveSelection(editable));
     editable.addEventListener('keyup', () => saveSelection(editable));
@@ -751,19 +924,25 @@
       imagePanel.openForInsert();
     });
 
+    newArticle.addEventListener('click', () => {
+      imagePanel.element.hidden = true;
+      newArticlePanel.startDraft();
+    });
+
     reset.addEventListener('click', () => {
       editable.innerHTML = originalHtml;
       setSelectedImage(null);
       imagePanel.element.hidden = true;
+      newArticlePanel.element.hidden = true;
       lockNonArticleControls(editable);
       refreshImageControls(editable, imagePanel);
-      status.textContent = `${fileName} reset`;
+      status.textContent = `${outputFileName} reset`;
       editable.focus();
     });
 
     download.addEventListener('click', () => {
       downloadMarkdown(buildMarkdown(editable));
-      status.textContent = `${fileName} downloaded`;
+      status.textContent = `${outputFileName} downloaded`;
     });
 
     exit.addEventListener('click', () => {
