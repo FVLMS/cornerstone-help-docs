@@ -1,6 +1,10 @@
 ---
 title: "Ongoing Competency 2025 Review"
 description: "Review 2025 ongoing competency training in Cornerstone."
+navTitle: "Review"
+navSection: "Ongoing Competency 2025"
+navIcon: "clipboard-check"
+navOrder: 20
 ---
 
 # Ongoing Competency 2025 Review

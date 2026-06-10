@@ -1,6 +1,10 @@
 ---
 title: "How To: Create Curriculum"
 description: "Build a curriculum using Fairview standards."
+navTitle: "Create Curriculum"
+navSection: "Ongoing Competency 2026"
+navIcon: "layers"
+navOrder: 60
 ---
 
 # How To: Create Curriculum

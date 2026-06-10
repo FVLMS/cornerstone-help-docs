@@ -1,6 +1,10 @@
 ---
 title: "Withdraw from a Session"
 description: "Withdraw from a Cornerstone session."
+navTitle: "Withdraw from Session"
+navSection: "Events and Sessions"
+navIcon: "log-out"
+navOrder: 70
 ---
 
 # Withdraw from a Session

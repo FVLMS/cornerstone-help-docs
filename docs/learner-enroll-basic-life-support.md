@@ -1,6 +1,10 @@
 ---
 title: "Enroll in Basic Life Support"
 description: "Self-enroll in Basic Life Support training."
+navTitle: "Enroll in Basic Life Support"
+navSection: "Learner Guides"
+navIcon: "heart-pulse"
+navOrder: 20
 ---
 
 # Enroll in Basic Life Support

@@ -1,6 +1,10 @@
 ---
 title: "Remove Self-Requested Training"
 description: "Remove self-requested training from your Cornerstone transcript."
+navTitle: "Remove Self-Requested Training"
+navSection: "Learner Guides"
+navIcon: "x-circle"
+navOrder: 100
 ---
 
 # Remove Self-Requested Training

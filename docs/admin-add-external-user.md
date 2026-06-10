@@ -1,6 +1,10 @@
 ---
 title: "Add an External User"
 description: "Create an external user profile in Cornerstone."
+navTitle: "Add an External User"
+navSection: "Admin Guides"
+navIcon: "user-plus"
+navOrder: 10
 ---
 
 # Add an External User

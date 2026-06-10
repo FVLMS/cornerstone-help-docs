@@ -43,6 +43,31 @@
   display: none;
 }
 
+.site-print-button {
+  background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.2);
+  border-radius: 6px;
+  bottom: 18px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.16);
+  color: #0f172a;
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 9px 12px;
+  position: fixed;
+  right: 18px;
+  z-index: 999;
+}
+
+.site-print-button:hover {
+  background: #f8fafc;
+}
+
+.markdown-editor-enabled .site-print-button {
+  bottom: 92px;
+}
+
 .content img,
 .main-content img,
 article img {
@@ -315,7 +340,7 @@ article h2 {
 .markdown-editor-new-fields {
   display: grid;
   gap: 10px;
-  grid-template-columns: 1fr 1fr 1.5fr 1fr;
+  grid-template-columns: 1fr 1fr 1.5fr 1fr 1fr 0.75fr;
 }
 
 .markdown-editor-new-snippet {
@@ -425,10 +450,87 @@ article h2 {
   .markdown-editor-image-actions button {
     flex: 1;
   }
+
+  .site-print-button {
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .markdown-editor-enabled .site-print-button {
+    bottom: 210px;
+  }
 }
 
 @media print {
-  .markdown-editor-ui {
+  @page {
+    margin: 0.6in;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .markdown-editor-ui,
+  .site-print-button,
+  .sidebar,
+  .topbar,
+  .header,
+  .page-header,
+  .page-navigation,
+  .page-footer,
+  .toc-sidebar,
+  .copy-button,
+  .search-modal,
+  .search-overlay,
+  .mobile-menu-toggle,
+  .sidebar-menu-button {
     display: none !important;
+  }
+
+  .main-content-wrapper,
+  .content-wrapper,
+  .content-area,
+  .content-layout,
+  .main-content,
+  main,
+  article {
+    box-shadow: none !important;
+    display: block !important;
+    margin: 0 !important;
+    max-width: none !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  .markdown-editor-target {
+    border: 0 !important;
+    padding: 0 !important;
+  }
+
+  a {
+    color: #000 !important;
+    text-decoration: underline;
+  }
+
+  img,
+  table,
+  pre,
+  blockquote {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  img {
+    box-shadow: none !important;
+    max-width: 100% !important;
+  }
+
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+    page-break-after: avoid;
   }
 }

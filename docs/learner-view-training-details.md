@@ -1,6 +1,10 @@
 ---
 title: "View Training Details"
 description: "View details for a training item in Cornerstone."
+navTitle: "View Training Details"
+navSection: "Learner Guides"
+navIcon: "info"
+navOrder: 120
 ---
 
 # View Training Details

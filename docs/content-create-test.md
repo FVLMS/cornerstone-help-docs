@@ -1,6 +1,10 @@
 ---
 title: "Create a Test"
 description: "Build a Cornerstone test, create questions, and add the questions to the test structure."
+navTitle: "Create Test"
+navSection: "Content Creation"
+navIcon: "clipboard-list"
+navOrder: 60
 ---
 
 # Create a Test

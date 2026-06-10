@@ -1,6 +1,10 @@
 ---
 title: "Lippincott Professional Development CE Certificate"
 description: "Access a Lippincott Professional Development CE certificate."
+navTitle: "Lippincott CE Certificate"
+navSection: "Learner Guides"
+navIcon: "award"
+navOrder: 40
 ---
 
 # Lippincott Professional Development CE Certificate

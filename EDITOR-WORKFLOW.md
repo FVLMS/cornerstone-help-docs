@@ -14,23 +14,30 @@ This site is static. The browser editor can create or edit Markdown files, but i
 ## Create a new article
 
 1. Open any article and add `?edit=1&new=1` to the URL, or open `?edit=1` and select `New Article`.
-2. Enter the article title, filename slug, description, and sidebar section.
+2. Enter the article title, filename slug, description, sidebar section, sidebar title, and sidebar order.
 3. Edit the draft article content in the page.
 4. Add screenshots with `Add Image` after the files have been uploaded to SharePoint.
 5. Select `Download .md`.
 6. Save the downloaded file into `docs/` using the downloaded filename.
 
-## Add the article to the sidebar
+## Sidebar navigation
 
-Open `docmd.config.js` and add the generated sidebar line under the selected section's `children` array.
+The sidebar is generated from each Markdown file's front matter during the build. New downloaded articles include the needed fields:
 
-Example:
-
-```js
-{ title: 'Example Article', path: 'example-article', icon: 'file-text' },
+```yaml
+navTitle: "Example Article"
+navSection: "Content Creation"
+navIcon: "file-text"
+navOrder: 999
 ```
 
-The `path` must match the Markdown filename without `.md`.
+Use `navTitle` for the shorter sidebar label, `navSection` for the sidebar group, and `navOrder` to place the article within that group. Lower `navOrder` values appear earlier.
+
+No `docmd.config.js` edit is needed for new articles unless you are adding an entirely new sidebar section.
+
+## Print
+
+Use the `Print` button on any article page. The print layout hides the sidebar, editor toolbar, search UI, footer, and page navigation so the article content prints cleanly.
 
 ## Publish
 

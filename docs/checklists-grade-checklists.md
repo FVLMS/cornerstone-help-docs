@@ -1,6 +1,10 @@
 ---
 title: "Grade Checklists"
 description: "Grade learner checklists in Cornerstone and submit them for approval when needed."
+navTitle: "Grade Checklists"
+navSection: "Tests and Checklists"
+navIcon: "check-circle"
+navOrder: 20
 ---
 
 # Grade Checklists

@@ -1,6 +1,10 @@
 ---
 title: "Use the Cornerstone Mobile App"
 description: "Install and use the Cornerstone mobile app."
+navTitle: "Cornerstone Mobile App"
+navSection: "Learner Guides"
+navIcon: "smartphone"
+navOrder: 50
 ---
 
 # Use the Cornerstone Mobile App

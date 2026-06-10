@@ -1,6 +1,10 @@
 ---
 title: "How To: Create Test"
 description: "Step-by-step test creation in Cornerstone."
+navTitle: "Create Test"
+navSection: "Ongoing Competency 2026"
+navIcon: "clipboard-list"
+navOrder: 50
 ---
 
 # How To: Create Test

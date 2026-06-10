@@ -1,6 +1,10 @@
 ---
 title: "Enroll in Safety Always"
 description: "Self-enroll in Safety Always training."
+navTitle: "Enroll in Safety Always"
+navSection: "Learner Guides"
+navIcon: "shield-check"
+navOrder: 30
 ---
 
 # Enroll in Safety Always

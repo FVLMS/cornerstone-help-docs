@@ -1,6 +1,10 @@
 ---
 title: "Grade a Free Form Essay"
 description: "Grade a free form essay response in Cornerstone."
+navTitle: "Grade Free Form Essay"
+navSection: "Tests and Checklists"
+navIcon: "edit-3"
+navOrder: 30
 ---
 
 # Grade a Free Form Essay

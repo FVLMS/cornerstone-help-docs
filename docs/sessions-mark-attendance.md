@@ -1,6 +1,10 @@
 ---
 title: "Mark Session Attendance"
 description: "Mark learner attendance for a Cornerstone session."
+navTitle: "Mark Attendance"
+navSection: "Events and Sessions"
+navIcon: "check-square"
+navOrder: 60
 ---
 
 # Mark Session Attendance

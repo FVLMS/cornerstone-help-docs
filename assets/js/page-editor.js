@@ -1,5 +1,36 @@
 (function () {
   const params = new URLSearchParams(window.location.search);
+  const editableSelector = '.main-content';
+  const imageBaseUrl = 'https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/';
+  const editorClassPrefix = 'markdown-editor-';
+
+  function createElement(tag, className, text) {
+    const element = document.createElement(tag);
+    if (className) element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+
+  function onReady(callback) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', callback);
+    } else {
+      callback();
+    }
+  }
+
+  function buildPrintButton() {
+    if (!document.querySelector(editableSelector) || document.querySelector('.site-print-button')) return;
+
+    const button = createElement('button', 'site-print-button markdown-editor-ui', 'Print');
+    button.type = 'button';
+    button.setAttribute('aria-label', 'Print this guide');
+    button.addEventListener('click', () => window.print());
+    document.body.append(button);
+  }
+
+  onReady(buildPrintButton);
+
   if (params.get('edit') !== '1') return;
 
   const script = document.getElementById('page-editor-script');
@@ -10,23 +41,12 @@
   let outputFileName = pageFileName;
   if (!sourceUrl) return;
 
-  const editableSelector = '.main-content';
-  const imageBaseUrl = 'https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/';
-  const editorClassPrefix = 'markdown-editor-';
-
   let sourceMarkdown = '';
   let originalHtml = '';
   let frontMatter = '';
   let isNewArticle = params.get('new') === '1';
   let selectedImage = null;
   let savedRange = null;
-
-  function createElement(tag, className, text) {
-    const element = document.createElement(tag);
-    if (className) element.className = className;
-    if (text) element.textContent = text;
-    return element;
-  }
 
   function slugify(value) {
     return value
@@ -42,11 +62,15 @@
     return String(value || '').replace(/\\/g, '\\\\').replace(/"/g, '\\"');
   }
 
-  function buildFrontMatter(title, description) {
+  function buildFrontMatter({ title, description, navTitle, navSection, navIcon, navOrder }) {
     return [
       '---',
       `title: "${escapeYaml(title)}"`,
       `description: "${escapeYaml(description)}"`,
+      `navTitle: "${escapeYaml(navTitle || title)}"`,
+      `navSection: "${escapeYaml(navSection)}"`,
+      `navIcon: "${escapeYaml(navIcon || 'file-text')}"`,
+      `navOrder: ${Number.isFinite(Number(navOrder)) ? Number(navOrder) : 999}`,
       '---'
     ].join('\n');
   }
@@ -716,6 +740,10 @@
       .filter((title) => title && title !== 'Home');
   }
 
+  function currentNavigationSection() {
+    return document.querySelector('.sidebar-nav li.active-parent > a .nav-item-title')?.textContent.trim();
+  }
+
   function newArticleTemplate(title) {
     return `
                     <h1>${title}</h1>
@@ -751,14 +779,22 @@
     const titleInput = createElement('input');
     const slugInput = createElement('input');
     const descriptionInput = createElement('input');
+    const navTitleInput = createElement('input');
+    const navOrderInput = createElement('input');
     const sectionSelect = createElement('select');
 
     titleInput.type = 'text';
     slugInput.type = 'text';
     descriptionInput.type = 'text';
+    navTitleInput.type = 'text';
+    navOrderInput.type = 'number';
+    navOrderInput.min = '1';
+    navOrderInput.step = '1';
     titleInput.placeholder = 'Create a Material';
     slugInput.placeholder = 'content-create-material';
     descriptionInput.placeholder = 'Short search/SEO description.';
+    navTitleInput.placeholder = 'Create Material';
+    navOrderInput.placeholder = '999';
 
     for (const section of navigationSections()) {
       const option = createElement('option', null, section);
@@ -772,11 +808,16 @@
       sectionSelect.append(option);
     }
 
+    const activeSection = currentNavigationSection();
+    if (activeSection) sectionSelect.value = activeSection;
+
     fields.append(
       field('Title', titleInput),
       field('Filename slug', slugInput),
       field('Description', descriptionInput),
-      field('Sidebar section', sectionSelect)
+      field('Sidebar section', sectionSelect),
+      field('Sidebar title', navTitleInput),
+      field('Sidebar order', navOrderInput)
     );
 
     const navSnippet = createElement('pre', 'markdown-editor-new-snippet');
@@ -785,7 +826,7 @@
       '<strong>Publish steps after downloading:</strong>',
       '<ol>',
       '<li>Save the downloaded file into the repo <code>docs/</code> folder.</li>',
-      '<li>Add the sidebar line below to <code>docmd.config.js</code> under the selected section.</li>',
+      '<li>The front matter shown below controls where it appears in the sidebar.</li>',
       '<li>Commit and push to GitHub. GitHub Actions will rebuild the Pages site.</li>',
       '<li>If the article uses screenshots, upload those files to the matching SharePoint folder first.</li>',
       '</ol>'
@@ -800,14 +841,24 @@
       const title = titleInput.value.trim() || 'New Help Article';
       const description = descriptionInput.value.trim() || 'Add a short description for this help article.';
       const slug = slugify(slugInput.value || title) || 'new-help-article';
+      const navTitle = navTitleInput.value.trim() || title;
+      const navSection = sectionSelect.value || 'Content Creation';
+      const navOrder = navOrderInput.value || '999';
 
       outputFileName = `${slug}.md`;
-      frontMatter = buildFrontMatter(title, description);
+      frontMatter = buildFrontMatter({
+        title,
+        description,
+        navTitle,
+        navSection,
+        navIcon: 'file-text',
+        navOrder
+      });
 
       const h1 = editable.querySelector('h1');
       if (h1) h1.textContent = title;
 
-      navSnippet.textContent = `{ title: '${title.replace(/'/g, "\\'")}', path: '${slug}', icon: 'file-text' },`;
+      navSnippet.textContent = frontMatter;
       status.textContent = `Drafting ${outputFileName}`;
       download.disabled = false;
     }
@@ -818,8 +869,17 @@
       titleInput.value = defaultTitle;
       slugInput.value = slugify(defaultTitle);
       descriptionInput.value = 'Add a short description for this help article.';
+      navTitleInput.value = defaultTitle;
+      navOrderInput.value = '999';
       outputFileName = `${slugInput.value}.md`;
-      frontMatter = buildFrontMatter(titleInput.value, descriptionInput.value);
+      frontMatter = buildFrontMatter({
+        title: titleInput.value,
+        description: descriptionInput.value,
+        navTitle: navTitleInput.value,
+        navSection: sectionSelect.value || 'Content Creation',
+        navIcon: 'file-text',
+        navOrder: navOrderInput.value
+      });
       replaceArticle(editable, newArticleTemplate(defaultTitle));
       refreshImageControls(editable, imagePanel);
       syncDraft();
@@ -829,6 +889,7 @@
 
     titleInput.addEventListener('input', () => {
       if (!slugInput.dataset.touched) slugInput.value = slugify(titleInput.value);
+      if (!navTitleInput.dataset.touched) navTitleInput.value = titleInput.value;
       syncDraft();
     });
     slugInput.addEventListener('input', () => {
@@ -836,6 +897,11 @@
       syncDraft();
     });
     descriptionInput.addEventListener('input', syncDraft);
+    navTitleInput.addEventListener('input', () => {
+      navTitleInput.dataset.touched = 'true';
+      syncDraft();
+    });
+    navOrderInput.addEventListener('input', syncDraft);
     sectionSelect.addEventListener('change', syncDraft);
     close.addEventListener('click', () => {
       panel.hidden = true;
@@ -952,9 +1018,5 @@
     });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', buildEditor);
-  } else {
-    buildEditor();
-  }
+  onReady(buildEditor);
 })();

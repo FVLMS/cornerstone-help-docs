@@ -1,6 +1,10 @@
 ---
 title: "Manager Dashboard"
 description: "Access and use the Manager Dashboard in Cornerstone."
+navTitle: "Manager Dashboard"
+navSection: "Manager Guides"
+navIcon: "layout-dashboard"
+navOrder: 10
 ---
 
 # Manager Dashboard

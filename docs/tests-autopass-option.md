@@ -1,6 +1,10 @@
 ---
 title: "Use the Test AutoPass Option"
 description: "Configure the AutoPass option for a Cornerstone test."
+navTitle: "Test AutoPass Option"
+navSection: "Tests and Checklists"
+navIcon: "check-check"
+navOrder: 50
 ---
 
 # Use the Test AutoPass Option

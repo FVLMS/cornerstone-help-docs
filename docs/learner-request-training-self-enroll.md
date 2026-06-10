@@ -1,6 +1,10 @@
 ---
 title: "Request Training or Self-Enroll"
 description: "Request training or self-enroll in Cornerstone."
+navTitle: "Request Training or Self-Enroll"
+navSection: "Learner Guides"
+navIcon: "search"
+navOrder: 110
 ---
 
 # Request Training or Self-Enroll

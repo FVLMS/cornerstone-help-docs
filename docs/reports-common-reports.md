@@ -1,6 +1,10 @@
 ---
 title: "Common Reports"
 description: "Review common Cornerstone reports and when to use them."
+navTitle: "Common Reports"
+navSection: "Reports and Transcripts"
+navIcon: "file-text"
+navOrder: 10
 ---
 
 # Common Reports

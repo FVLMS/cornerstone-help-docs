@@ -1,6 +1,10 @@
 ---
 title: "Print a Certificate as a Learner"
 description: "Print a certificate from your Cornerstone transcript."
+navTitle: "Print Certificate"
+navSection: "Learner Guides"
+navIcon: "award"
+navOrder: 70
 ---
 
 # Print a Certificate as a Learner

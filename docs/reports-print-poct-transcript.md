@@ -1,6 +1,10 @@
 ---
 title: "Print a POCT Transcript Report"
 description: "Print a POCT transcript report in Cornerstone."
+navTitle: "Print POCT Transcript Report"
+navSection: "Reports and Transcripts"
+navIcon: "printer"
+navOrder: 30
 ---
 
 # Print a POCT Transcript Report

@@ -1,6 +1,10 @@
 ---
 title: "How To: Create Material"
 description: "Step-by-step material creation in Cornerstone."
+navTitle: "Create Material"
+navSection: "Ongoing Competency 2026"
+navIcon: "file-plus"
+navOrder: 40
 ---
 
 # How To: Create Material

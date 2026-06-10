@@ -1,6 +1,10 @@
 ---
 title: "Print a Certificate from a Curriculum"
 description: "Print a certificate from a completed curriculum."
+navTitle: "Print Curriculum Certificate"
+navSection: "Learner Guides"
+navIcon: "printer"
+navOrder: 80
 ---
 
 # Print a Certificate from a Curriculum

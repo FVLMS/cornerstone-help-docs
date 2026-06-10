@@ -1,6 +1,10 @@
 ---
 title: "Track Interest as an ILT Admin"
 description: "Review interest tracking for ILT sessions in Cornerstone."
+navTitle: "Track Interest as ILT Admin"
+navSection: "Events and Sessions"
+navIcon: "list-checks"
+navOrder: 40
 ---
 
 # Track Interest as an ILT Admin

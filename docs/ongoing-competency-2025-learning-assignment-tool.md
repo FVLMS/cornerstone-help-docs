@@ -1,6 +1,10 @@
 ---
 title: "Ongoing Competency 2025 Learning Assignment Tool"
 description: "Use the Learning Assignment Tool for 2025 ongoing competency assignments."
+navTitle: "Learning Assignment Tool"
+navSection: "Ongoing Competency 2025"
+navIcon: "user-plus"
+navOrder: 10
 ---
 
 # Ongoing Competency 2025 Learning Assignment Tool

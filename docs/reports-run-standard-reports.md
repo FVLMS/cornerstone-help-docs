@@ -1,6 +1,10 @@
 ---
 title: "Run Standard Reports"
 description: "Run standard reports in Cornerstone."
+navTitle: "Run Standard Reports"
+navSection: "Reports and Transcripts"
+navIcon: "bar-chart-3"
+navOrder: 40
 ---
 
 # Run Standard Reports

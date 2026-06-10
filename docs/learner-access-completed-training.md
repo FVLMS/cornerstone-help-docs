@@ -1,6 +1,10 @@
 ---
 title: "Access Previously Completed Training"
 description: "Find previously completed training in Cornerstone."
+navTitle: "Access Completed Training"
+navSection: "Learner Guides"
+navIcon: "check-circle"
+navOrder: 10
 ---
 
 # Access Previously Completed Training

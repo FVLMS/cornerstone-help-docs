@@ -1,6 +1,10 @@
 ---
 title: "Edit Session Date, Time, or Location"
 description: "Update the date, time, or location for a Cornerstone session."
+navTitle: "Edit Date, Time, or Location"
+navSection: "Events and Sessions"
+navIcon: "calendar-clock"
+navOrder: 30
 ---
 
 # Edit Session Date, Time, or Location

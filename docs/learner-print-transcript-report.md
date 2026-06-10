@@ -1,6 +1,10 @@
 ---
 title: "Print a Transcript Report"
 description: "Run the full transcript report from My Transcript in Cornerstone."
+navTitle: "Print Transcript Report"
+navSection: "Learner Guides"
+navIcon: "printer"
+navOrder: 90
 ---
 
 # Print a Transcript Report

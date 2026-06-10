@@ -1,6 +1,10 @@
 ---
 title: "Review Test Results"
 description: "Review learner test results in Cornerstone."
+navTitle: "Review Test Results"
+navSection: "Tests and Checklists"
+navIcon: "clipboard-check"
+navOrder: 40
 ---
 
 # Review Test Results

@@ -1,6 +1,10 @@
 ---
 title: "Add a Learner to a Session Roster"
 description: "Add a learner to a session roster in Cornerstone."
+navTitle: "Add a Learner to Roster"
+navSection: "Events and Sessions"
+navIcon: "user-plus"
+navOrder: 10
 ---
 
 # Add a Learner to a Session Roster

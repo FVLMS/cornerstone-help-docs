@@ -1,6 +1,10 @@
 ---
 title: "Track Interest for Sessions"
 description: "Use session interest tracking in Cornerstone."
+navTitle: "Track Interest for Sessions"
+navSection: "Events and Sessions"
+navIcon: "list-checks"
+navOrder: 50
 ---
 
 # Track Interest for Sessions

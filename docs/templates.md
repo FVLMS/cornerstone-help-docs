@@ -1,6 +1,10 @@
 ---
 title: "Templates"
 description: "Standard templates for Intro, Test, Material, and Curriculum."
+navTitle: "Templates"
+navSection: "Ongoing Competency 2026"
+navIcon: "layout"
+navOrder: 20
 ---
 
 # Templates
