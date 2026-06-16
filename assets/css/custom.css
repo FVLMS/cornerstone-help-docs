@@ -102,6 +102,36 @@ article img.guide-image--tiny {
   width: auto;
 }
 
+.guide-video {
+  background: #000;
+  border: 1px solid rgba(15, 23, 42, 0.16);
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  margin: 18px 0 28px;
+  overflow: hidden;
+  position: relative;
+  width: min(960px, 100%);
+}
+
+.guide-video::before {
+  content: "";
+  display: block;
+  padding-top: 56.25%;
+}
+
+.guide-video iframe,
+.guide-video video {
+  border: 0;
+  height: 100%;
+  inset: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.guide-video--file {
+  background: #0f172a;
+}
+
 .content li,
 .main-content li,
 article li {
@@ -220,7 +250,8 @@ article h2 {
   pointer-events: none;
 }
 
-.markdown-editor-target img {
+.markdown-editor-target img,
+.markdown-editor-target .guide-video {
   cursor: pointer;
 }
 
@@ -229,7 +260,13 @@ article h2 {
   outline-offset: 4px;
 }
 
-.markdown-editor-image-chip {
+.markdown-editor-selected-video {
+  outline: 4px solid rgba(14, 165, 233, 0.7);
+  outline-offset: 4px;
+}
+
+.markdown-editor-image-chip,
+.markdown-editor-video-chip {
   background: #fff;
   border: 1px solid rgba(15, 23, 42, 0.2);
   border-radius: 999px;
@@ -243,7 +280,8 @@ article h2 {
   padding: 6px 10px;
 }
 
-.markdown-editor-image-panel {
+.markdown-editor-image-panel,
+.markdown-editor-video-panel {
   background: #fff;
   border: 1px solid rgba(15, 23, 42, 0.16);
   border-radius: 8px;
@@ -258,7 +296,8 @@ article h2 {
   z-index: 1000;
 }
 
-.markdown-editor-image-panel[hidden] {
+.markdown-editor-image-panel[hidden],
+.markdown-editor-video-panel[hidden] {
   display: none;
 }
 
@@ -273,6 +312,12 @@ article h2 {
   display: grid;
   gap: 10px;
   grid-template-columns: 1fr 1fr 2fr minmax(130px, 0.75fr);
+}
+
+.markdown-editor-video-fields {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 2fr 1fr minmax(130px, 0.75fr);
 }
 
 .markdown-editor-image-field {
@@ -428,7 +473,8 @@ article h2 {
     flex: 1;
   }
 
-  .markdown-editor-image-panel {
+  .markdown-editor-image-panel,
+  .markdown-editor-video-panel {
     bottom: 210px;
     max-height: calc(100vh - 232px);
     overflow-y: auto;
@@ -443,6 +489,7 @@ article h2 {
   }
 
   .markdown-editor-image-fields,
+  .markdown-editor-video-fields,
   .markdown-editor-new-fields {
     grid-template-columns: 1fr;
   }
@@ -515,6 +562,7 @@ article h2 {
   }
 
   img,
+  .guide-video,
   table,
   pre,
   blockquote {

@@ -46,6 +46,7 @@
   let frontMatter = '';
   let isNewArticle = params.get('new') === '1';
   let selectedImage = null;
+  let selectedVideo = null;
   let savedRange = null;
 
   function slugify(value) {
@@ -173,6 +174,8 @@
   }
 
   function setSelectedImage(image) {
+    if (selectedVideo) selectedVideo.classList.remove('markdown-editor-selected-video');
+    selectedVideo = null;
     if (selectedImage) selectedImage.classList.remove('markdown-editor-selected-image');
     selectedImage = image;
     if (selectedImage) selectedImage.classList.add('markdown-editor-selected-image');
@@ -181,6 +184,14 @@
   function setImageClasses(image, size) {
     image.className = imageClassesForSize(size).join(' ');
     if (image === selectedImage) image.classList.add('markdown-editor-selected-image');
+  }
+
+  function setSelectedVideo(video) {
+    if (selectedImage) selectedImage.classList.remove('markdown-editor-selected-image');
+    selectedImage = null;
+    if (selectedVideo) selectedVideo.classList.remove('markdown-editor-selected-video');
+    selectedVideo = video;
+    if (selectedVideo) selectedVideo.classList.add('markdown-editor-selected-video');
   }
 
   function inlineMarkdown(node) {
@@ -226,6 +237,22 @@
     const alt = node.getAttribute('alt') || '';
     const classAttr = classNames.length ? ` class="${escapeAttribute(classNames.join(' '))}"` : '';
     return `<img${classAttr} src="${escapeAttribute(src)}" alt="${escapeAttribute(alt)}">`;
+  }
+
+  function videoMarkdown(node) {
+    const clone = node.cloneNode(true);
+    clone.classList.remove('markdown-editor-selected-video');
+    clone.removeAttribute('contenteditable');
+
+    for (const control of clone.querySelectorAll('.markdown-editor-ui')) {
+      control.remove();
+    }
+
+    for (const element of clone.querySelectorAll('[contenteditable]')) {
+      element.removeAttribute('contenteditable');
+    }
+
+    return clone.outerHTML;
   }
 
   function listMarkdown(node, depth, ordered) {
@@ -324,7 +351,7 @@
 
     if (tag === 'p') {
       const hasBlockChild = Array.from(node.children).some((child) =>
-        ['blockquote', 'ol', 'pre', 'table', 'ul'].includes(child.tagName.toLowerCase())
+        ['blockquote', 'div', 'iframe', 'ol', 'pre', 'table', 'ul', 'video'].includes(child.tagName.toLowerCase())
       );
 
       return hasBlockChild ? blockChildrenMarkdown(node, depth) : inlineMarkdown(node).trim();
@@ -333,6 +360,8 @@
     if (tag === 'ol') return listMarkdown(node, depth, true);
     if (tag === 'li') return inlineMarkdown(node).trim();
     if (tag === 'img') return imageMarkdown(node);
+    if (tag === 'iframe' || tag === 'video') return videoMarkdown(node);
+    if (node.classList.contains('guide-video')) return videoMarkdown(node);
     if (tag === 'blockquote') return blockquoteMarkdown(node, depth);
     if (tag === 'table') return tableMarkdown(node);
 
@@ -397,6 +426,11 @@
       image.setAttribute('draggable', 'false');
       image.tabIndex = 0;
     }
+
+    for (const video of editable.querySelectorAll('.guide-video, iframe, video')) {
+      video.setAttribute('contenteditable', 'false');
+      video.tabIndex = 0;
+    }
   }
 
   function refreshImageControls(editable, imagePanel) {
@@ -416,6 +450,27 @@
         imagePanel.openForImage(image);
       });
       image.after(button);
+    }
+  }
+
+  function refreshVideoControls(editable, videoPanel) {
+    for (const control of editable.querySelectorAll('.markdown-editor-video-chip')) {
+      control.remove();
+    }
+
+    for (const video of editable.querySelectorAll('.guide-video, iframe, video')) {
+      if (video.closest('.page-navigation')) continue;
+      if (video.closest('.guide-video') && !video.classList.contains('guide-video')) continue;
+
+      const button = createElement('button', 'markdown-editor-video-chip markdown-editor-ui', 'Edit Video');
+      button.type = 'button';
+      button.setAttribute('contenteditable', 'false');
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        videoPanel.openForVideo(video);
+      });
+      video.after(button);
     }
   }
 
@@ -524,13 +579,16 @@
   }
 
   function closestInsertionTarget(editable) {
+    if (selectedVideo && editable.contains(selectedVideo)) return selectedVideo;
     if (selectedImage && editable.contains(selectedImage)) return selectedImage;
 
     if (savedRange) {
       const container = savedRange.commonAncestorContainer.nodeType === Node.ELEMENT_NODE
         ? savedRange.commonAncestorContainer
         : savedRange.commonAncestorContainer.parentElement;
-      const target = container ? container.closest('img, li, p, h1, h2, h3, h4, h5, h6') : null;
+      const target = container
+        ? container.closest('.guide-video, iframe, video, img, li, p, h1, h2, h3, h4, h5, h6')
+        : null;
 
       if (target && editable.contains(target) && !target.closest('.page-navigation')) {
         return target;
@@ -560,6 +618,25 @@
     image.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
+  function insertBlock(editable, block) {
+    const target = closestInsertionTarget(editable);
+    const navigation = editable.querySelector('.page-navigation');
+
+    if (target && target.tagName.toLowerCase() === 'li') {
+      target.append(document.createTextNode('\n'));
+      target.append(block);
+    } else if (target && editable.contains(target)) {
+      target.after(block);
+    } else if (navigation) {
+      navigation.before(block);
+    } else {
+      editable.append(block);
+    }
+
+    lockNonArticleControls(editable);
+    block.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
   function imageFromEvent(event, editable) {
     if (!(event.target instanceof Element)) return null;
 
@@ -569,6 +646,77 @@
     }
 
     return image;
+  }
+
+  function videoFromEvent(event, editable) {
+    if (!(event.target instanceof Element)) return null;
+
+    const video = event.target.closest('.guide-video, iframe, video');
+    if (!video || !editable.contains(video) || video.closest('.page-navigation')) {
+      return null;
+    }
+
+    return video.closest('.guide-video') || video;
+  }
+
+  function normalizeVideoUrl(value) {
+    const rawValue = value.trim();
+    if (!rawValue) return '';
+
+    if (rawValue.startsWith('<')) {
+      const parsed = new DOMParser().parseFromString(rawValue, 'text/html');
+      const iframe = parsed.querySelector('iframe');
+      const video = parsed.querySelector('video');
+      const source = parsed.querySelector('source');
+      if (iframe) return iframe.getAttribute('src') || '';
+      if (video) return video.getAttribute('src') || source?.getAttribute('src') || '';
+    }
+
+    try {
+      const url = new URL(rawValue);
+      if (url.hostname.includes('youtube.com') && url.searchParams.get('v')) {
+        return `https://www.youtube.com/embed/${url.searchParams.get('v')}`;
+      }
+      if (url.hostname === 'youtu.be') {
+        return `https://www.youtube.com/embed/${url.pathname.replace(/^\/+/, '')}`;
+      }
+    } catch (_error) {
+      return rawValue;
+    }
+
+    return rawValue;
+  }
+
+  function isDirectVideoUrl(value) {
+    return /\.(mp4|mov|m4v|webm|ogg)(\?|#|$)/i.test(value);
+  }
+
+  function buildVideoBlock(url, title, mode) {
+    const src = normalizeVideoUrl(url);
+    if (!src) return null;
+
+    const wrapper = document.createElement('div');
+    wrapper.className = mode === 'file' || isDirectVideoUrl(src) ? 'guide-video guide-video--file' : 'guide-video';
+    if (title.trim()) wrapper.setAttribute('data-video-title', title.trim());
+
+    if (wrapper.classList.contains('guide-video--file')) {
+      const video = document.createElement('video');
+      video.controls = true;
+      video.preload = 'metadata';
+      video.src = src;
+      if (title.trim()) video.setAttribute('aria-label', title.trim());
+      wrapper.append(video);
+    } else {
+      const iframe = document.createElement('iframe');
+      iframe.src = src;
+      iframe.title = title.trim() || 'Embedded video';
+      iframe.loading = 'lazy';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.allowFullscreen = true;
+      wrapper.append(iframe);
+    }
+
+    return wrapper;
   }
 
   function field(labelText, input) {
@@ -734,6 +882,152 @@
     return imageApi;
   }
 
+  function buildVideoPanel(editable, status) {
+    const panel = createElement('form', 'markdown-editor-video-panel markdown-editor-ui');
+    panel.hidden = true;
+
+    const heading = createElement('p', 'markdown-editor-image-title', 'Video');
+    const urlInput = createElement('input');
+    const titleInput = createElement('input');
+    const modeSelect = createElement('select');
+    const preview = createElement('p', 'markdown-editor-image-preview');
+
+    urlInput.type = 'text';
+    titleInput.type = 'text';
+    urlInput.placeholder = 'Paste a video URL or iframe embed code';
+    titleInput.placeholder = 'Short video title';
+
+    [
+      ['embed', 'Embed URL'],
+      ['file', 'Video file']
+    ].forEach(([value, label]) => {
+      const option = createElement('option', null, label);
+      option.value = value;
+      modeSelect.append(option);
+    });
+
+    const fields = createElement('div', 'markdown-editor-video-fields');
+    fields.append(
+      field('URL or embed code', urlInput),
+      field('Title', titleInput),
+      field('Type', modeSelect)
+    );
+
+    const actions = createElement('div', 'markdown-editor-image-actions');
+    const apply = createElement('button', 'markdown-editor-primary', 'Apply');
+    const insert = createElement('button', 'markdown-editor-primary', 'Insert Video');
+    const remove = createElement('button', 'markdown-editor-secondary', 'Remove');
+    const close = createElement('button', 'markdown-editor-secondary', 'Close');
+    apply.type = 'button';
+    insert.type = 'button';
+    remove.type = 'button';
+    close.type = 'button';
+    actions.append(apply, insert, remove, close);
+    panel.append(heading, fields, preview, actions);
+
+    function updatePreview() {
+      preview.textContent = normalizeVideoUrl(urlInput.value) || 'Paste a video URL or embed code.';
+    }
+
+    function fillFromVideo(video) {
+      const iframe = video.matches('iframe') ? video : video.querySelector('iframe');
+      const videoElement = video.matches('video') ? video : video.querySelector('video');
+      const src = iframe?.getAttribute('src') || videoElement?.getAttribute('src') || '';
+      const title = video.getAttribute('data-video-title') || iframe?.getAttribute('title') || videoElement?.getAttribute('aria-label') || '';
+
+      urlInput.value = src;
+      titleInput.value = title === 'Embedded video' ? '' : title;
+      modeSelect.value = videoElement ? 'file' : 'embed';
+      updatePreview();
+    }
+
+    function replaceVideo(target, nextVideo) {
+      if (!target || !nextVideo) return;
+
+      const chip = target.nextElementSibling;
+      target.replaceWith(nextVideo);
+      if (chip && chip.classList.contains('markdown-editor-video-chip')) nextVideo.after(chip);
+      setSelectedVideo(nextVideo);
+      lockNonArticleControls(editable);
+      refreshVideoControls(editable, videoApi);
+      status.textContent = 'Video updated';
+    }
+
+    function openForVideo(video) {
+      setSelectedVideo(video);
+      heading.textContent = 'Edit video';
+      fillFromVideo(video);
+      apply.hidden = false;
+      remove.hidden = false;
+      insert.hidden = true;
+      panel.hidden = false;
+      urlInput.focus();
+    }
+
+    function openForInsert() {
+      setSelectedVideo(null);
+      heading.textContent = 'Add video';
+      urlInput.value = '';
+      titleInput.value = '';
+      modeSelect.value = 'embed';
+      updatePreview();
+      apply.hidden = true;
+      remove.hidden = true;
+      insert.hidden = false;
+      panel.hidden = false;
+      urlInput.focus();
+    }
+
+    urlInput.addEventListener('input', updatePreview);
+    modeSelect.addEventListener('change', updatePreview);
+
+    apply.addEventListener('click', () => {
+      const nextVideo = buildVideoBlock(urlInput.value, titleInput.value, modeSelect.value);
+      replaceVideo(selectedVideo, nextVideo);
+    });
+
+    insert.addEventListener('click', () => {
+      const video = buildVideoBlock(urlInput.value, titleInput.value, modeSelect.value);
+      if (!video) return;
+
+      insertBlock(editable, video);
+      setSelectedVideo(video);
+      refreshVideoControls(editable, videoApi);
+      status.textContent = 'Video inserted';
+      openForVideo(video);
+    });
+
+    remove.addEventListener('click', () => {
+      if (!selectedVideo) return;
+
+      const videoControl = selectedVideo.nextElementSibling;
+      if (videoControl && videoControl.classList.contains('markdown-editor-video-chip')) {
+        videoControl.remove();
+      }
+      selectedVideo.remove();
+      setSelectedVideo(null);
+      panel.hidden = true;
+      status.textContent = 'Video removed';
+      editable.focus();
+    });
+
+    close.addEventListener('click', () => {
+      panel.hidden = true;
+      setSelectedVideo(null);
+      editable.focus();
+    });
+
+    panel.addEventListener('submit', (event) => event.preventDefault());
+
+    const videoApi = {
+      element: panel,
+      openForVideo,
+      openForInsert
+    };
+
+    return videoApi;
+  }
+
   function navigationSections() {
     return Array.from(document.querySelectorAll('.sidebar-nav > ul > li > a .nav-item-title'))
       .map((node) => node.textContent.trim())
@@ -768,6 +1062,7 @@
     editable.innerHTML = html;
     originalHtml = html;
     setSelectedImage(null);
+    setSelectedVideo(null);
     lockNonArticleControls(editable);
   }
 
@@ -938,21 +1233,25 @@
     const actions = createElement('div', 'markdown-editor-inline-actions');
     const newArticle = createElement('button', 'markdown-editor-secondary', 'New Article');
     const addImage = createElement('button', 'markdown-editor-secondary', 'Add Image');
+    const addVideo = createElement('button', 'markdown-editor-secondary', 'Add Video');
     const reset = createElement('button', 'markdown-editor-secondary', 'Reset');
     const download = createElement('button', 'markdown-editor-primary', 'Download .md');
     const exit = createElement('button', 'markdown-editor-secondary', 'Exit');
     newArticle.type = 'button';
     addImage.type = 'button';
+    addVideo.type = 'button';
     reset.type = 'button';
     download.type = 'button';
     exit.type = 'button';
-    actions.append(newArticle, addImage, reset, download, exit);
+    actions.append(newArticle, addImage, addVideo, reset, download, exit);
     toolbar.append(status, formatControls, actions);
 
     const imagePanel = buildImagePanel(editable, status);
+    const videoPanel = buildVideoPanel(editable, status);
     const newArticlePanel = buildNewArticlePanel(editable, status, download, imagePanel);
-    document.body.append(toolbar, imagePanel.element, newArticlePanel.element);
+    document.body.append(toolbar, imagePanel.element, videoPanel.element, newArticlePanel.element);
     refreshImageControls(editable, imagePanel);
+    refreshVideoControls(editable, videoPanel);
 
     if (isNewArticle) {
       newArticlePanel.startDraft();
@@ -973,9 +1272,21 @@
       }
     };
 
+    const openVideoFromEvent = (event) => {
+      const video = videoFromEvent(event, editable);
+      if (video) {
+        event.preventDefault();
+        event.stopPropagation();
+        videoPanel.openForVideo(video);
+      }
+    };
+
     editable.addEventListener('pointerdown', openImageFromEvent, true);
     editable.addEventListener('mousedown', openImageFromEvent, true);
     editable.addEventListener('click', openImageFromEvent, true);
+    editable.addEventListener('pointerdown', openVideoFromEvent, true);
+    editable.addEventListener('mousedown', openVideoFromEvent, true);
+    editable.addEventListener('click', openVideoFromEvent, true);
 
     editable.addEventListener('keydown', (event) => {
       const image = imageFromEvent(event, editable);
@@ -983,25 +1294,42 @@
         event.preventDefault();
         imagePanel.openForImage(image);
       }
+
+      const video = videoFromEvent(event, editable);
+      if (video && (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault();
+        videoPanel.openForVideo(video);
+      }
     });
 
     addImage.addEventListener('click', () => {
       saveSelection(editable);
+      videoPanel.element.hidden = true;
       imagePanel.openForInsert();
+    });
+
+    addVideo.addEventListener('click', () => {
+      saveSelection(editable);
+      imagePanel.element.hidden = true;
+      videoPanel.openForInsert();
     });
 
     newArticle.addEventListener('click', () => {
       imagePanel.element.hidden = true;
+      videoPanel.element.hidden = true;
       newArticlePanel.startDraft();
     });
 
     reset.addEventListener('click', () => {
       editable.innerHTML = originalHtml;
       setSelectedImage(null);
+      setSelectedVideo(null);
       imagePanel.element.hidden = true;
+      videoPanel.element.hidden = true;
       newArticlePanel.element.hidden = true;
       lockNonArticleControls(editable);
       refreshImageControls(editable, imagePanel);
+      refreshVideoControls(editable, videoPanel);
       status.textContent = `${outputFileName} reset`;
       editable.focus();
     });

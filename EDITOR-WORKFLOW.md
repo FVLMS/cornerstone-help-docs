@@ -17,8 +17,9 @@ This site is static. The browser editor can create or edit Markdown files, but i
 2. Enter the article title, filename slug, description, sidebar section, sidebar title, and sidebar order.
 3. Edit the draft article content in the page.
 4. Add screenshots with `Add Image` after the files have been uploaded to SharePoint.
-5. Select `Download .md`.
-6. Save the downloaded file into `docs/` using the downloaded filename.
+5. Add videos with `Add Video` by pasting a video URL, SharePoint-hosted video file URL, YouTube URL, or iframe embed code.
+6. Select `Download .md`.
+7. Save the downloaded file into `docs/` using the downloaded filename.
 
 ## Sidebar navigation
 
@@ -38,6 +39,16 @@ No `docmd.config.js` edit is needed for new articles unless you are adding an en
 ## Print
 
 Use the `Print` button on any article page. The print layout hides the sidebar, editor toolbar, search UI, footer, and page navigation so the article content prints cleanly.
+
+## Videos
+
+In edit mode, select `Add Video`, paste the video URL or embed code, add a short title, and select `Insert Video`.
+
+- Use `Embed URL` for YouTube, Stream, or iframe-style embeds.
+- Use `Video file` for direct `.mp4`, `.webm`, `.mov`, `.m4v`, or `.ogg` links.
+- YouTube watch links are converted to embed links automatically.
+
+The downloaded Markdown stores videos as responsive HTML blocks, so they continue to work on GitHub Pages after publishing.
 
 ## Publish
 
