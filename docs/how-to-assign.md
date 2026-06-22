@@ -9,7 +9,7 @@ navOrder: 120
 
 # How To: Assign
 
-Use the Learning Assignment Tool (LAT) for Ongoing Competency 2025 assignments.
+Use the Learning Assignment Tool (LAT) for Ongoing Competency 2026 assignments.
 
 1. Navigate to the Menu > Content Management > Learning Assignment Tool
 2. Search for **1558** or **Ongoing Competency 2026: TITLE**

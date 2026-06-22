@@ -15,7 +15,7 @@ Use this site for task-based Cornerstone LMS help guides. The goal is to replace
 - [Events and Sessions](sessions-mark-attendance/) covers session rosters, attendance, interest tracking, schedule edits, and withdrawals.
 - [Reports and Transcripts](reports-run-standard-reports/) includes common reports, POCT transcripts, certificates, and time-spent reporting.
 - [Tests and Checklists](checklists-grade-checklists/) covers checklist grading, validation details, essay grading, test results, and AutoPass.
-- The Ongoing Competency sections remain available for year-specific reference material.
+- The Ongoing Competency section remains available for 2026 reference material.
 - Contact the LMS team at LMS@fairview.org if a guide appears out of date or if you are unsure before making a learner-impacting change.
 
 ## Documentation Standards

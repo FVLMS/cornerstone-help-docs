@@ -9,7 +9,6 @@ const sections = [
   { title: 'Events and Sessions', icon: 'calendar' },
   { title: 'Reports and Transcripts', icon: 'bar-chart' },
   { title: 'Tests and Checklists', icon: 'check-square' },
-  { title: 'Ongoing Competency 2025', icon: 'layers' },
   { title: 'Ongoing Competency 2026', icon: 'layers' }
 ];
 
