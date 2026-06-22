@@ -5,9 +5,7 @@ description: "Task-based Cornerstone LMS help guides for Fairview users."
 
 # Cornerstone Help Docs
 
-Use this site for task-based Cornerstone LMS help guides. The goal is to replace scattered Word and PDF tip sheets with searchable, web-friendly articles that are easier to maintain and easier to follow.
-
-## Start Here
+View [Support updates](lms-support-updates/) from the LMS Team, or browse the help doc catalog using the left sidebar or the search field in the upper right corner.
 
 - [Learner Guides](learner-request-training-self-enroll/) cover self-enrollment, certificates, transcripts, mobile app use, and training details.
 - [Admin Guides](admin-learning-assignment-tool/) cover learning assignments, due dates, external users, removals, and auto-assign review.
@@ -17,16 +15,3 @@ Use this site for task-based Cornerstone LMS help guides. The goal is to replace
 - [Tests and Checklists](checklists-grade-checklists/) covers checklist grading, validation details, essay grading, test results, and AutoPass.
 - The Ongoing Competency section remains available for 2026 reference material.
 - Contact the LMS team at LMS@fairview.org if a guide appears out of date or if you are unsure before making a learner-impacting change.
-
-## Documentation Standards
-
-- Guides should be short, direct, and written around the task the user is trying to complete.
-- Screenshots should include clear callouts when the target action is not obvious.
-- Steps should still be understandable without relying on the screenshot alone.
-- Articles should use current Cornerstone terms and avoid old Word/PDF layout artifacts.
-
-## Current Build Status
-
-The legacy tip sheet library has been converted into this site: 5 pilot tip sheets, 37 additional Word tip sheets, and 1 PDF-only common reports sheet. The Word/PDF template was skipped.
-
-Staged screenshots are stored locally for review and will be moved to SharePoint-hosted image links before final public publish.

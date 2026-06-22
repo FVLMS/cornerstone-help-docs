@@ -2,9 +2,7 @@
 title: "LMS Support Updates"
 description: "Searchable LMS support team change log for eLearning releases, content updates, configuration changes, and support solutions."
 navTitle: "Support Updates"
-navSection: "LMS Support Team"
 navIcon: "clipboard-list"
-navOrder: 1
 noindex: true
 ---
 

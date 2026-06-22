@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 
 const sections = [
-  { title: 'LMS Support Team', icon: 'clipboard-list' },
   { title: 'Learner Guides', icon: 'user' },
   { title: 'Manager Guides', icon: 'users' },
   { title: 'Admin Guides', icon: 'settings' },
@@ -77,6 +76,7 @@ function buildNavigation(docsDir = path.join(process.cwd(), 'docs')) {
 
   return [
     { title: 'Home', path: '/', icon: 'home' },
+    { title: 'Support Updates', path: '/lms-support-updates/', icon: 'clipboard-list' },
     ...sections
       .filter((section) => bySection.get(section.title)?.length)
       .map((section) => ({
