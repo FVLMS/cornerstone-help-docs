@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const sections = [
+  { title: 'LMS Support Team', icon: 'clipboard-list' },
   { title: 'Learner Guides', icon: 'user' },
   { title: 'Manager Guides', icon: 'users' },
   { title: 'Admin Guides', icon: 'settings' },
