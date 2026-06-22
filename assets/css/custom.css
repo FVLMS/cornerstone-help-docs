@@ -246,10 +246,39 @@ article h2 {
   padding-bottom: 10px;
 }
 
+.support-updates__week {
+  margin: 26px 0 34px;
+}
+
 .support-updates__week h3 {
-  color: var(--support-ink);
-  font-size: 18px;
-  margin: 18px 0 12px;
+  background: #0f172a;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 16px;
+  margin: 22px 0 18px;
+  padding: 10px 12px;
+}
+
+.support-updates__category-group {
+  margin: 0 0 20px;
+}
+
+.support-updates__category-heading {
+  align-items: center;
+  color: #475569;
+  display: flex;
+  font-size: 13px;
+  font-weight: 900;
+  gap: 10px;
+  margin: 16px 0 8px;
+  text-transform: uppercase;
+}
+
+.support-updates__category-heading::after {
+  background: var(--support-border);
+  content: "";
+  flex: 1 1 auto;
+  height: 1px;
 }
 
 .support-update {
@@ -283,7 +312,7 @@ article h2 {
   padding: 5px 8px;
 }
 
-.support-update__category--support {
+.support-update__category--solutions {
   background: #ecfdf5;
   color: #047857;
 }
@@ -298,9 +327,14 @@ article h2 {
   color: #1d4ed8;
 }
 
-.support-update__category--new {
+.support-update__category--assignments {
   background: #f5f3ff;
   color: #6d28d9;
+}
+
+.support-update__category--known {
+  background: #fef2f2;
+  color: #b91c1c;
 }
 
 .support-update h4 {
@@ -333,6 +367,7 @@ article h2 {
 
 .support-update[hidden],
 .support-updates__week[hidden],
+.support-updates__category-group[hidden],
 .support-updates__empty[hidden] {
   display: none;
 }

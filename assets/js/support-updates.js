@@ -18,7 +18,47 @@
     var filters = Array.prototype.slice.call(root.querySelectorAll('[data-support-filter]'));
     var entries = Array.prototype.slice.call(root.querySelectorAll('[data-support-entry]'));
     var groups = Array.prototype.slice.call(root.querySelectorAll('[data-support-group]'));
+    var categoryOrder = ['content', 'configuration', 'assignments', 'solutions', 'known-issues'];
+    var categoryLabels = {
+      content: 'Content',
+      configuration: 'Configuration',
+      assignments: 'Assignments',
+      solutions: 'Solutions',
+      'known-issues': 'Known Issues'
+    };
     var activeFilter = 'all';
+
+    groups.forEach(function (group) {
+      var groupEntries = Array.prototype.slice.call(group.querySelectorAll('[data-support-entry]'));
+      var fragment = document.createDocumentFragment();
+
+      categoryOrder.forEach(function (category) {
+        var categoryEntries = groupEntries.filter(function (entry) {
+          return entry.getAttribute('data-category') === category;
+        });
+
+        if (!categoryEntries.length) return;
+
+        var categoryGroup = document.createElement('div');
+        categoryGroup.className = 'support-updates__category-group';
+        categoryGroup.setAttribute('data-support-category-group', '');
+
+        var heading = document.createElement('div');
+        heading.className = 'support-updates__category-heading';
+        heading.textContent = categoryLabels[category] || category;
+        categoryGroup.appendChild(heading);
+
+        categoryEntries.forEach(function (entry) {
+          categoryGroup.appendChild(entry);
+        });
+
+        fragment.appendChild(categoryGroup);
+      });
+
+      group.appendChild(fragment);
+    });
+
+    var categoryGroups = Array.prototype.slice.call(root.querySelectorAll('[data-support-category-group]'));
 
     entries.forEach(function (entry) {
       entry.dataset.searchText = [
@@ -60,6 +100,10 @@
 
       groups.forEach(function (group) {
         group.hidden = !group.querySelector('[data-support-entry]:not([hidden])');
+      });
+
+      categoryGroups.forEach(function (categoryGroup) {
+        categoryGroup.hidden = !categoryGroup.querySelector('[data-support-entry]:not([hidden])');
       });
 
       empty.hidden = visibleCount !== 0;
