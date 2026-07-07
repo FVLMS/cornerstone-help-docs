@@ -3,8 +3,9 @@ title: "Edit Due Dates"
 description: "Edit due dates for training in Cornerstone."
 navTitle: "Edit Due Dates"
 navSection: "Admin Guides"
+navGroup: "Administrative Guides"
 navIcon: "calendar-clock"
-navOrder: 30
+navOrder: 80
 ---
 
 # Edit Due Dates

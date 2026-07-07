@@ -2,9 +2,10 @@
 title: "Create a Video Lesson"
 description: "Create a video lesson in Cornerstone."
 navTitle: "Create Video Lesson"
-navSection: "Content Creation"
+navSection: "Admin Guides"
+navGroup: "Content Creation Guides"
 navIcon: "video"
-navOrder: 40
+navOrder: 50
 ---
 
 # Create a Video Lesson

@@ -2,7 +2,7 @@
 title: "How To: Create Curriculum"
 description: "Build a curriculum using Fairview standards."
 navTitle: "Create Curriculum"
-navSection: "Ongoing Competency 2026"
+navSection: "Ongoing Competency 20xx"
 navIcon: "layers"
 navOrder: 60
 ---

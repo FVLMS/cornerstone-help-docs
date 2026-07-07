@@ -2,9 +2,14 @@
 title: "Print a Certificate as an Admin"
 description: "Print a learner certificate as an administrator."
 navTitle: "Print Certificate as Admin"
-navSection: "Reports and Transcripts"
+navSection: "Admin Guides"
+navGroup: "Administrative Guides"
 navIcon: "printer"
-navOrder: 20
+navOrder: 40
+navAlsoTitle: "Print Certificate as an Admin"
+navAlsoSection: "Manager Guides"
+navAlsoIcon: "printer"
+navAlsoOrder: 30
 ---
 
 # Print a Certificate as an Admin

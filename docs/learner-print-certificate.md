@@ -4,7 +4,7 @@ description: "Print a certificate from your Cornerstone transcript."
 navTitle: "Print Certificate"
 navSection: "Learner Guides"
 navIcon: "award"
-navOrder: 70
+navOrder: 90
 ---
 
 # Print a Certificate as a Learner

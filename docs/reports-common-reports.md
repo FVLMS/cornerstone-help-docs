@@ -2,9 +2,14 @@
 title: "Common Reports"
 description: "Review common Cornerstone reports and when to use them."
 navTitle: "Common Reports"
-navSection: "Reports and Transcripts"
+navSection: "Admin Guides"
+navGroup: "Administrative Guides"
 navIcon: "file-text"
 navOrder: 10
+navAlsoTitle: "Reporting/Common Reports"
+navAlsoSection: "Manager Guides"
+navAlsoIcon: "bar-chart"
+navAlsoOrder: 20
 ---
 
 # Common Reports

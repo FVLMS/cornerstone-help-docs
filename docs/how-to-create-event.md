@@ -2,7 +2,7 @@
 title: "How To: Create ILT Events"
 description: "Step-by-step ILT creation in Cornerstone."
 navTitle: "Create ILT Events"
-navSection: "Ongoing Competency 2026"
+navSection: "Ongoing Competency 20xx"
 navIcon: "calendar"
 navOrder: 70
 ---

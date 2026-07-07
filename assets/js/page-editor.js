@@ -1031,7 +1031,7 @@
   function navigationSections() {
     return Array.from(document.querySelectorAll('.sidebar-nav > ul > li > a .nav-item-title'))
       .map((node) => node.textContent.trim())
-      .filter((title) => title && title !== 'Home');
+      .filter((title) => title && !['Home', 'Support Updates'].includes(title));
   }
 
   function currentNavigationSection() {
@@ -1098,8 +1098,8 @@
     }
 
     if (!sectionSelect.children.length) {
-      const option = createElement('option', null, 'Content Creation');
-      option.value = 'Content Creation';
+      const option = createElement('option', null, 'Admin Guides');
+      option.value = 'Admin Guides';
       sectionSelect.append(option);
     }
 
@@ -1137,7 +1137,7 @@
       const description = descriptionInput.value.trim() || 'Add a short description for this help article.';
       const slug = slugify(slugInput.value || title) || 'new-help-article';
       const navTitle = navTitleInput.value.trim() || title;
-      const navSection = sectionSelect.value || 'Content Creation';
+      const navSection = sectionSelect.value || 'Admin Guides';
       const navOrder = navOrderInput.value || '999';
 
       outputFileName = `${slug}.md`;
@@ -1171,7 +1171,7 @@
         title: titleInput.value,
         description: descriptionInput.value,
         navTitle: navTitleInput.value,
-        navSection: sectionSelect.value || 'Content Creation',
+        navSection: sectionSelect.value || 'Admin Guides',
         navIcon: 'file-text',
         navOrder: navOrderInput.value
       });

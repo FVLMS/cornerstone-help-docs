@@ -2,9 +2,10 @@
 title: "Create a Material"
 description: "Add a material learning object in Cornerstone."
 navTitle: "Create Material"
-navSection: "Content Creation"
+navSection: "Admin Guides"
+navGroup: "Content Creation Guides"
 navIcon: "file-plus"
-navOrder: 30
+navOrder: 20
 ---
 
 # Create a Material

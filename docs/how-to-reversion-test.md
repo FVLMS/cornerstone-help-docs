@@ -2,7 +2,7 @@
 title: "How To: Reversion Test"
 description: "Reversioning workflow for tests."
 navTitle: "Reversion Test"
-navSection: "Ongoing Competency 2026"
+navSection: "Ongoing Competency 20xx"
 navIcon: "rotate-ccw"
 navOrder: 100
 ---

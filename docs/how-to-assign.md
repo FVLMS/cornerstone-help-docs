@@ -2,7 +2,7 @@
 title: "How To: Assign"
 description: "Use the Learning Assignment Tool for Ongoing Competency."
 navTitle: "Assign"
-navSection: "Ongoing Competency 2026"
+navSection: "Ongoing Competency 20xx"
 navIcon: "user-plus"
 navOrder: 120
 ---

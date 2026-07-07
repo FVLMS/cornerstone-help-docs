@@ -2,9 +2,10 @@
 title: "Edit Validation Details"
 description: "Edit validation details for checklist items in Cornerstone."
 navTitle: "Edit Validation Details"
-navSection: "Tests and Checklists"
+navSection: "Admin Guides"
+navGroup: "Content Creation Guides"
 navIcon: "settings"
-navOrder: 10
+navOrder: 60
 ---
 
 # Edit Validation Details

@@ -4,7 +4,7 @@ description: "Upload a pharmacy certification in Cornerstone."
 navTitle: "Pharmacy Certification Upload"
 navSection: "Learner Guides"
 navIcon: "upload"
-navOrder: 60
+navOrder: 110
 ---
 
 # Upload a Pharmacy Certification

@@ -4,12 +4,15 @@ const path = require('path');
 const sections = [
   { title: 'Learner Guides', icon: 'user' },
   { title: 'Manager Guides', icon: 'users' },
-  { title: 'Admin Guides', icon: 'settings' },
-  { title: 'Content Creation', icon: 'file-plus' },
-  { title: 'Events and Sessions', icon: 'calendar' },
-  { title: 'Reports and Transcripts', icon: 'bar-chart' },
-  { title: 'Tests and Checklists', icon: 'check-square' },
-  { title: 'Ongoing Competency 2026', icon: 'layers' }
+  {
+    title: 'Admin Guides',
+    icon: 'settings',
+    groups: [
+      { title: 'Content Creation Guides', icon: 'file-plus' },
+      { title: 'Administrative Guides', icon: 'settings' }
+    ]
+  },
+  { title: 'Ongoing Competency 20xx', icon: 'layers' }
 ];
 
 function parseScalar(value) {
@@ -51,8 +54,33 @@ function titleFromFileName(fileName) {
     .join(' ');
 }
 
+function itemFromPage(file, data, overrides = {}) {
+  return {
+    title: overrides.title || data.navTitle || data.title || titleFromFileName(file),
+    path: overrides.path || path.basename(file, '.md'),
+    icon: overrides.icon || data.navIcon || 'file-text',
+    order: Number.isFinite(overrides.order)
+      ? overrides.order
+      : Number.isFinite(data.navOrder)
+        ? data.navOrder
+        : 999,
+    section: overrides.section || data.navSection,
+    group: overrides.group || data.navGroup
+  };
+}
+
+function stripSortFields({ order, section, group, ...item }) {
+  return item;
+}
+
+function sortItems(items) {
+  return items
+    .sort((left, right) => left.order - right.order || left.title.localeCompare(right.title))
+    .map(stripSortFields);
+}
+
 function buildNavigation(docsDir = path.join(process.cwd(), 'docs')) {
-  const bySection = new Map(sections.map((section) => [section.title, []]));
+  const items = [];
 
   for (const file of fs.readdirSync(docsDir).filter((entry) => entry.endsWith('.md'))) {
     if (file === 'index.md') continue;
@@ -61,35 +89,62 @@ function buildNavigation(docsDir = path.join(process.cwd(), 'docs')) {
     const data = parseFrontMatter(fs.readFileSync(filePath, 'utf8'));
     if (data.navExclude === true) continue;
 
-    const section = data.navSection;
-    if (!section) continue;
+    if (data.navSection) items.push(itemFromPage(file, data));
 
-    if (!bySection.has(section)) bySection.set(section, []);
-
-    bySection.get(section).push({
-      title: data.navTitle || data.title || titleFromFileName(file),
-      path: path.basename(file, '.md'),
-      icon: data.navIcon || 'file-text',
-      order: Number.isFinite(data.navOrder) ? data.navOrder : 999
-    });
+    if (data.navAlsoSection) {
+      items.push(
+        itemFromPage(file, data, {
+          title: data.navAlsoTitle,
+          icon: data.navAlsoIcon,
+          order: data.navAlsoOrder,
+          section: data.navAlsoSection,
+          group: data.navAlsoGroup
+        })
+      );
+    }
   }
 
   return [
     { title: 'Home', path: '/', icon: 'home' },
-    { title: 'Support Updates', path: '/lms-support-updates/', icon: 'clipboard-list' },
     ...sections
-      .filter((section) => bySection.get(section.title)?.length)
+      .map((section) => ({
+        ...section,
+        children: buildSectionChildren(section, items)
+      }))
+      .filter((section) => section.children.length)
       .map((section) => ({
         title: section.title,
         path: '#',
         icon: section.icon,
         collapsible: true,
-        children: bySection
-          .get(section.title)
-          .sort((left, right) => left.order - right.order || left.title.localeCompare(right.title))
-          .map(({ order, ...item }) => item)
+        children: section.children
       }))
   ];
+}
+
+function buildSectionChildren(section, items) {
+  const sectionItems = items.filter((item) => item.section === section.title);
+  const groups = section.groups || [];
+  const groupTitles = new Set(groups.map((group) => group.title));
+  const children = [];
+
+  for (const group of groups) {
+    const groupItems = sectionItems.filter((item) => item.group === group.title);
+    if (!groupItems.length) continue;
+
+    children.push({
+      title: group.title,
+      path: '#',
+      icon: group.icon || 'folder',
+      collapsible: true,
+      children: sortItems(groupItems)
+    });
+  }
+
+  const remainingItems = sectionItems.filter((item) => !item.group || !groupTitles.has(item.group));
+  children.push(...sortItems(remainingItems));
+
+  return children;
 }
 
 module.exports = {

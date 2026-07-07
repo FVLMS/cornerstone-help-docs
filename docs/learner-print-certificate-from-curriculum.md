@@ -1,6 +1,7 @@
 ---
 title: "Print a Certificate from a Curriculum"
 description: "Print a certificate from a completed curriculum."
+navExclude: true
 navTitle: "Print Curriculum Certificate"
 navSection: "Learner Guides"
 navIcon: "printer"

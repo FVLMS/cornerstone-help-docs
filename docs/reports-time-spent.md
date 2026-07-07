@@ -2,9 +2,10 @@
 title: "Run the Time Spent Report"
 description: "Run the Time Spent report in Cornerstone."
 navTitle: "Run the Time Spent Report"
-navSection: "Reports and Transcripts"
+navSection: "Admin Guides"
+navGroup: "Administrative Guides"
 navIcon: "clock"
-navOrder: 50
+navOrder: 30
 ---
 
 # Run the Time Spent Report

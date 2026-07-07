@@ -2,7 +2,7 @@
 title: "How To: Reversion Curriculum"
 description: "Reversioning workflow for curricula."
 navTitle: "Reversion Curriculum"
-navSection: "Ongoing Competency 2026"
+navSection: "Ongoing Competency 20xx"
 navIcon: "rotate-ccw"
 navOrder: 110
 ---

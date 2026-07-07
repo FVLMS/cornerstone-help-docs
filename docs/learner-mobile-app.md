@@ -4,7 +4,7 @@ description: "Install and use the Cornerstone mobile app."
 navTitle: "Cornerstone Mobile App"
 navSection: "Learner Guides"
 navIcon: "smartphone"
-navOrder: 50
+navOrder: 120
 ---
 
 # Use the Cornerstone Mobile App

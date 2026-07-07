@@ -2,7 +2,7 @@
 title: "Validation Options"
 description: "Validation types and considerations for Ongoing Competency."
 navTitle: "Validation Options"
-navSection: "Ongoing Competency 2026"
+navSection: "Ongoing Competency 20xx"
 navIcon: "check-circle"
 navOrder: 30
 ---

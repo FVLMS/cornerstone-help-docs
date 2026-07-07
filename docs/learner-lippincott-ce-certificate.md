@@ -4,7 +4,7 @@ description: "Access a Lippincott Professional Development CE certificate."
 navTitle: "Lippincott CE Certificate"
 navSection: "Learner Guides"
 navIcon: "award"
-navOrder: 40
+navOrder: 100
 ---
 
 # Lippincott Professional Development CE Certificate

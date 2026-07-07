@@ -2,9 +2,10 @@
 title: "Add a Curriculum Note"
 description: "Add a note to a curriculum in Cornerstone."
 navTitle: "Add a Curriculum Note"
-navSection: "Content Creation"
+navSection: "Admin Guides"
+navGroup: "Content Creation Guides"
 navIcon: "sticky-note"
-navOrder: 10
+navOrder: 100
 ---
 
 # Add a Curriculum Note
