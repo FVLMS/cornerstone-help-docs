@@ -2,8 +2,7 @@
 title: "Create Materials with No Signature Required"
 description: "Create material learning objects that do not require a signature."
 navTitle: "Materials with No Signature"
-navSection: "Admin Guides"
-navGroup: "Content Creation Guides"
+navSection: "Content Creation Guides"
 navIcon: "file-check"
 navOrder: 30
 ---

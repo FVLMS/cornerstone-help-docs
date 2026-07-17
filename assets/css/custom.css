@@ -1,9 +1,13 @@
 .sidebar {
-  width: 320px;
+  width: 380px;
 }
 
 .main-content-wrapper {
-  margin-left: 320px;
+  margin-left: 380px;
+}
+
+.sidebar-nav .nav-item-title {
+  white-space: nowrap;
 }
 
 .content-layout {

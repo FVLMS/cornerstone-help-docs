@@ -8,11 +8,11 @@ const sections = [
     title: 'Admin Guides',
     icon: 'settings',
     groups: [
-      { title: 'Content Creation Guides', icon: 'file-plus' },
       { title: 'Administrative Guides', icon: 'settings' }
     ]
   },
-  { title: 'Ongoing Competency 20xx', icon: 'layers' }
+  { title: 'Content Creation Guides', icon: 'file-plus' },
+  { title: 'Ongoing Competency 2026', icon: 'layers' }
 ];
 
 function parseScalar(value) {

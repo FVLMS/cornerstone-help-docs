@@ -2,8 +2,7 @@
 title: "Use the Test AutoPass Option"
 description: "Configure the AutoPass option for a Cornerstone test."
 navTitle: "Test AutoPass Option"
-navSection: "Admin Guides"
-navGroup: "Content Creation Guides"
+navSection: "Content Creation Guides"
 navIcon: "check-check"
 navOrder: 90
 ---

@@ -2,7 +2,7 @@
 title: "How To: Create Test"
 description: "Step-by-step test creation in Cornerstone."
 navTitle: "Create Test"
-navSection: "Ongoing Competency 20xx"
+navSection: "Ongoing Competency 2026"
 navIcon: "clipboard-list"
 navOrder: 50
 ---

@@ -2,7 +2,7 @@
 title: "How To: Reversion Material"
 description: "Reversioning workflow for materials."
 navTitle: "Reversion Material"
-navSection: "Ongoing Competency 20xx"
+navSection: "Ongoing Competency 2026"
 navIcon: "rotate-ccw"
 navOrder: 90
 ---

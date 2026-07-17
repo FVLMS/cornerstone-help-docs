@@ -2,8 +2,7 @@
 title: "Grade Checklists"
 description: "Grade learner checklists in Cornerstone and submit them for approval when needed."
 navTitle: "Grade Checklists"
-navSection: "Admin Guides"
-navGroup: "Content Creation Guides"
+navSection: "Learner Guides"
 navIcon: "check-circle"
 navOrder: 70
 ---

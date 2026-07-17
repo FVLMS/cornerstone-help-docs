@@ -1,18 +1,18 @@
 ---
-title: "Print a Certificate as an Admin"
-description: "Print a learner certificate as an administrator."
-navTitle: "Print Certificate as Admin"
+title: "Print a Certificate for a User"
+description: "Print a certificate for a user from their learner transcript."
+navTitle: "Print Certificate for User"
 navSection: "Admin Guides"
 navGroup: "Administrative Guides"
 navIcon: "printer"
 navOrder: 40
-navAlsoTitle: "Print Certificate as an Admin"
+navAlsoTitle: "Print Certificate for User"
 navAlsoSection: "Manager Guides"
 navAlsoIcon: "printer"
 navAlsoOrder: 30
 ---
 
-# Print a Certificate as an Admin
+# Print a Certificate for a User
 
 Use this guide to print a learner's certificate from the learner transcript.
 

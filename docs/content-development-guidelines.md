@@ -2,8 +2,7 @@
 title: "Content Development Guidelines"
 description: "Review Cornerstone content development standards."
 navTitle: "Content Development Guidelines"
-navSection: "Admin Guides"
-navGroup: "Content Creation Guides"
+navSection: "Content Creation Guides"
 navIcon: "book-open"
 navOrder: 10
 ---

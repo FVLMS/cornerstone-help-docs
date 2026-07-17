@@ -2,7 +2,7 @@
 title: "Ongoing Competency"
 description: "Reference section for 2026 Ongoing Competency content."
 navTitle: "Introduction"
-navSection: "Ongoing Competency 20xx"
+navSection: "Ongoing Competency 2026"
 navIcon: "book-open"
 navOrder: 10
 ---

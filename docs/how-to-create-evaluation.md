@@ -2,7 +2,7 @@
 title: "How To: Create Evaluation"
 description: "Step-by-step evaluation creation in Cornerstone."
 navTitle: "Create Evaluation"
-navSection: "Ongoing Competency 20xx"
+navSection: "Ongoing Competency 2026"
 navIcon: "message-square"
 navOrder: 80
 ---

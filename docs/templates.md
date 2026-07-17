@@ -2,7 +2,7 @@
 title: "Templates"
 description: "Standard templates for Intro, Test, Material, and Curriculum."
 navTitle: "Templates"
-navSection: "Ongoing Competency 20xx"
+navSection: "Ongoing Competency 2026"
 navIcon: "layout"
 navOrder: 20
 ---
