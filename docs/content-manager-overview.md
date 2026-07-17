@@ -13,7 +13,7 @@ This guide will provide an overview of the newly designed and centralized Conten
 
 ## Video Guide
 
-<div class="guide-video guide-video--file" tabindex="0"><video controls="" preload="metadata" src="https://mnfhs.sharepoint.com/:v:/r/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/content-manager-overview/ContentManager.mp4?csf=1&amp;web=1&amp;e=RSFP0O" tabindex="0"></video></div>
+<div class="guide-video guide-video--file" tabindex="0"><video controls="" preload="metadata" src="https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/content-manager-overview/ContentManager.mp4" tabindex="0"></video></div>
 
 ## Accessing the Content Manager
 
@@ -55,7 +55,7 @@ Video Guide for
 
 :
 
-<div class="guide-video guide-video--file" tabindex="0"><video controls="" preload="metadata" src="https://mnfhs.sharepoint.com/:v:/r/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/content-manager-overview/DemoMaterial.mp4?csf=1&amp;web=1&amp;e=q8SQnq" tabindex="0"></video></div>
+<div class="guide-video guide-video--file" tabindex="0"><video controls="" preload="metadata" src="https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/content-manager-overview/DemoMaterial.mp4" tabindex="0"></video></div>
 
 Video Guide for
 
@@ -63,4 +63,4 @@ Video Guide for
 
 :
 
-<div class="guide-video guide-video--file" tabindex="0"><video controls="" preload="metadata" src="https://mnfhs.sharepoint.com/:v:/r/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/content-manager-overview/DemoVideo.mp4?csf=1&amp;web=1&amp;e=iI4RR5" tabindex="0"></video></div>
+<div class="guide-video guide-video--file" tabindex="0"><video controls="" preload="metadata" src="https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/content-manager-overview/DemoVideo.mp4" tabindex="0"></video></div>
