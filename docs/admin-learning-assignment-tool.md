@@ -3,7 +3,6 @@ title: "Use the Learning Assignment Tool"
 description: "Create a one-time Cornerstone learning assignment for a group of learners."
 navTitle: "Learning Assignment Tool"
 navSection: "Admin Guides"
-navGroup: "Administrative Guides"
 navIcon: "user-plus"
 navOrder: 90
 ---

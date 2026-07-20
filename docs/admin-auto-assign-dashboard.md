@@ -3,7 +3,6 @@ title: "Auto Assign Dashboard"
 description: "Use the Auto Assign Dashboard in Cornerstone."
 navTitle: "Auto-Assign Dashboard"
 navSection: "Admin Guides"
-navGroup: "Administrative Guides"
 navIcon: "layout-dashboard"
 navOrder: 70
 ---

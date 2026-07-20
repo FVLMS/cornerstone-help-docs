@@ -4,14 +4,8 @@ const path = require('path');
 const sections = [
   { title: 'Learner Guides', icon: 'user' },
   { title: 'Manager Guides', icon: 'users' },
-  {
-    title: 'Admin Guides',
-    icon: 'settings',
-    groups: [
-      { title: 'Administrative Guides', icon: 'settings' }
-    ]
-  },
-  { title: 'Content Creation Guides', icon: 'file-plus' },
+  { title: 'Admin Guides', icon: 'settings' },
+  { title: 'Content Developer Guides', icon: 'file-plus' },
   { title: 'Ongoing Competency 2026', icon: 'layers' }
 ];
 

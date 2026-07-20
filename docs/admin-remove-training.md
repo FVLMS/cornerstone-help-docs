@@ -3,7 +3,6 @@ title: "Remove Training"
 description: "Remove training from a learner record in Cornerstone."
 navTitle: "Remove Training"
 navSection: "Admin Guides"
-navGroup: "Administrative Guides"
 navIcon: "trash-2"
 navOrder: 100
 ---

@@ -2,9 +2,9 @@
 title: "Content Manager Overview"
 description: "This page provides an overview of the updated and centralized Content manager page."
 navTitle: "Content Manager Overview"
-navSection: "Admin Guides"
+navSection: "Content Developer Guides"
 navIcon: "file-text"
-navOrder: 3
+navOrder: 1
 ---
 
 # Content Manager Overview

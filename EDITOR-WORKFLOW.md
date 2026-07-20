@@ -27,12 +27,12 @@ The sidebar is generated from each Markdown file's front matter during the build
 
 ```yaml
 navTitle: "Example Article"
-navSection: "Content Creation Guides"
+navSection: "Content Developer Guides"
 navIcon: "file-text"
 navOrder: 999
 ```
 
-Use `navTitle` for the shorter sidebar label, `navSection` for the top-level sidebar category, optional `navGroup` for a nested group such as **Administrative Guides**, and `navOrder` to place the article within that category or group. Lower `navOrder` values appear earlier.
+Use `navTitle` for the shorter sidebar label, `navSection` for the top-level sidebar category, and `navOrder` to place the article within that category. Lower `navOrder` values appear earlier.
 
 No `docmd.config.js` edit is needed for new articles unless you are adding an entirely new sidebar section.
 

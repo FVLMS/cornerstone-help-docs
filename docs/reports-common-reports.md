@@ -3,7 +3,6 @@ title: "Common Reports"
 description: "Review common Cornerstone reports and when to use them."
 navTitle: "Common Reports"
 navSection: "Admin Guides"
-navGroup: "Administrative Guides"
 navIcon: "file-text"
 navOrder: 10
 navAlsoTitle: "Reporting/Common Reports"

@@ -3,7 +3,6 @@ title: "Print a Certificate for a User"
 description: "Print a certificate for a user from their learner transcript."
 navTitle: "Print Certificate for User"
 navSection: "Admin Guides"
-navGroup: "Administrative Guides"
 navIcon: "printer"
 navOrder: 40
 navAlsoTitle: "Print Certificate for User"

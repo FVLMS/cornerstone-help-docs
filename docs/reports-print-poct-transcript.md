@@ -3,7 +3,6 @@ title: "Print a POCT Transcript Report"
 description: "Print a POCT transcript report in Cornerstone."
 navTitle: "Print POCT Transcript Report"
 navSection: "Admin Guides"
-navGroup: "Administrative Guides"
 navIcon: "printer"
 navOrder: 50
 ---

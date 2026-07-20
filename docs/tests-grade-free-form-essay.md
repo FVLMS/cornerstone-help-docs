@@ -2,7 +2,7 @@
 title: "Grade a Free Form Essay"
 description: "Grade a free form essay response in Cornerstone."
 navTitle: "Grade Free Form Essay"
-navSection: "Content Creation Guides"
+navSection: "Content Developer Guides"
 navIcon: "edit-3"
 navOrder: 80
 ---
