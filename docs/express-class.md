@@ -13,13 +13,16 @@ navAlsoOrder: 120
 
 # Express Class
 
-Use this guide to create an Express Class for a completed training or huddle, add attendees, and record their completion.
+We are rolling out a new tool in the Cornerstone LMS called Express Class. This tool allows managers, educators, and administrators to record ad hoc learning activities, such as vendor demos, meetings, and huddles, directly on a user’s transcript when documentation is needed for regulatory or compliance purposes.
 
 ## Get Access
 
-Access to Express Class must be requested. Email LMS@fairview.org to request access or ask whether Express Class is appropriate for your training.
+To get access to this Express Class tool:
 
-<!-- Video: Add the Express Class video guide here. -->
+1.	Complete the required training in Cornerstone: <a href="https://fairviewhealth.csod.com/ui/lms-learning-details/app/curriculum/3f46c87f-189a-4c3e-8e81-d92f56cfc97e">https://fairviewhealth.csod.com/ui/lms-learning-details/app/curriculum/3f46c87f-189a-4c3e-8e81-d92f56cfc97e</a>
+2.	Email <a href="mailto:LMS@fairview.org">LMS@fairview.org</a> after completing the training to request access.
+
+<div class="guide-video guide-video--file" tabindex="0"><video controls="" preload="metadata" src="https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/content-manager-overview/ContentManager.mp4" tabindex="0"></video></div>
 
 ## Before You Begin
 
