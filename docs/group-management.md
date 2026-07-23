@@ -5,6 +5,10 @@ navTitle: "Group Management"
 navSection: "What's New?"
 navIcon: "users"
 navOrder: 20
+navAlsoTitle: "Group Management"
+navAlsoSection: "Admin Guides"
+navAlsoIcon: "users"
+navAlsoOrder: 130
 ---
 
 # Group Management

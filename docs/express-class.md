@@ -5,6 +5,10 @@ navTitle: "Express Class"
 navSection: "What's New?"
 navIcon: "zap"
 navOrder: 10
+navAlsoTitle: "Express Class"
+navAlsoSection: "Admin Guides"
+navAlsoIcon: "zap"
+navAlsoOrder: 120
 ---
 
 # Express Class
