@@ -19,20 +19,14 @@ Use this guide to create or edit a custom group and manage its membership in Cor
 
 Group Management is currently available as a pilot before it is released more broadly. Email LMS@fairview.org if you are interested in being part of the pilot group.
 
-## Before You Begin
-
-- Confirm the purpose of the group and who should be included.
-- Prepare a clear title and description.
-- Choose a unique Group ID using the format `DEPT-PURPOSE-AUDIENCE`. Use uppercase letters with hyphens and no spaces, such as `EDU-BLS-INSTRUCTORS`.
-- Contact the LMS team before using dynamic criteria if you are unsure how the criteria will affect membership.
-
 ## Access Group Management
 
 1. Go to **Menu > System Administrator > Groups Management**.
 2. Review the groups created by users in your department.
 3. Select **Create Group** to create a group, or search for an existing group and select **Edit**.
 
-<!-- Image 1: Groups Management page with the Create Group and Edit controls. -->
+   <img class="guide-image" src="https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/group-management/group1.png">
+
 
 ## Create or Edit a Group
 
@@ -40,12 +34,12 @@ Group Management is currently available as a pilot before it is released more br
 
    - **Title:** Use a clear, human-readable name.
    - **Description:** Explain the group's purpose and intended membership.
-   - **Group ID:** Follow the `DEPT-PURPOSE-AUDIENCE` convention.
+   - **Group ID:** Choose a unique Group ID using lowercase letters with hyphens and no spaces, such as `ummc-charge-rns`.
 
 2. Review the information for accuracy.
 3. Continue to the membership section.
 
-<!-- Image 2: Group details fields for Title, Description, and Group ID. -->
+   <img class="guide-image" src="https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/group-management/group2.png">
 
 ## Manage Members
 
@@ -64,11 +58,6 @@ Group Management is currently available as a pilot before it is released more br
 
 ## Notes
 
-- Review the membership carefully before publishing a group.
 - Group membership may not update immediately.
 - Contact the LMS team at LMS@fairview.org if the group includes a large population or if the membership criteria are unclear.
 
-<!-- References:
-https://vrc-support.zendesk.com/hc/en-us/articles/45271233130509-NEW-Redesigned-Custom-Groups-Creating-Groups
-https://vrc-support.zendesk.com/hc/en-us/articles/45128400536973-NEW-Redesigned-Custom-Groups-Managing-Groups
--->
