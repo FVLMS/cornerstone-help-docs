@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const sections = [
+  { title: "What's New?", icon: 'sparkles' },
   { title: 'Learner Guides', icon: 'user' },
   { title: 'Manager Guides', icon: 'users' },
   { title: 'Admin Guides', icon: 'settings' },
