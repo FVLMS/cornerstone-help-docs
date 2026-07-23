@@ -19,10 +19,16 @@ We are rolling out a new tool in the Cornerstone LMS called Express Class. This 
 
 To get access to this Express Class tool:
 
-1.	Complete the required training in Cornerstone: <a href="https://fairviewhealth.csod.com/ui/lms-learning-details/app/curriculum/3f46c87f-189a-4c3e-8e81-d92f56cfc97e">https://fairviewhealth.csod.com/ui/lms-learning-details/app/curriculum/3f46c87f-189a-4c3e-8e81-d92f56cfc97e</a>
-2.	Email <a href="mailto:LMS@fairview.org">LMS@fairview.org</a> after completing the training to request access.
+1. Complete the required training in Cornerstone:
 
-<div class="guide-video guide-video--file" tabindex="0"><video controls="" preload="metadata" src="https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/content-manager-overview/ContentManager.mp4" tabindex="0"></video></div>
+   [https://fairviewhealth.csod.com/ui/lms-learning-details/app/curriculum/3f46c87f-189a-4c3e-8e81-d92f56cfc97e](https://fairviewhealth.csod.com/ui/lms-learning-details/app/curriculum/3f46c87f-189a-4c3e-8e81-d92f56cfc97e)
+2. Email
+
+   [LMS@fairview.org](mailto:LMS@fairview.org)
+
+   after completing the training to request access.
+
+<div class="guide-video guide-video--file" tabindex="0"><video controls="" preload="metadata" src="https://mnfhs.sharepoint.com/sites/LMSTeam/LMS%20Public/CornerstoneTraining/ExpressClass/Express%20Class%20Training%20Video.mp4" tabindex="0"></video></div>
 
 ## Before You Begin
 
@@ -30,10 +36,18 @@ To get access to this Express Class tool:
 - Prepare a list of attendees.
 - Confirm the completion status, score, and observed training hours that should be recorded.
 - Prepare a title that follows one of these conventions:
-  - Vendor demonstration: `[Vendor Name] demo of [Product Name]`
-    - Example: `Medical Care Vendor demo of New Product 3`
-  - Meeting or huddle: `[Meeting Title] discussion of [Topic]`
-    - Example: `Team huddle discussion of restraint policy`
+   - Vendor demonstration:
+
+     `[Vendor Name] demo of [Product Name]`
+      - Example:
+
+        `Medical Care Vendor demo of New Product 3`
+   - Meeting or huddle:
+
+     `[Meeting Title] discussion of [Topic]`
+      - Example:
+
+        `Team huddle discussion of restraint policy`
 
 ## Create the Express Class
 
@@ -42,64 +56,101 @@ To get access to this Express Class tool:
 
    Do not use **Search Existing Training**.
 
+   <img class="guide-image" src="https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/express-class/ExpressClass1.png" alt="">
 3. Enter the training details:
+   - **Training Title:**
 
-   - **Training Title:** Follow one of the title conventions above.
-   - **Description:** Explain the context and purpose of the training or huddle.
-   - **Subject:** Select the most appropriate subject.
-   - **Training Hours:** Enter the length of the training.
+     Follow one of the title conventions above.
+   - **Description:**
 
+     Explain the context and purpose of the training or huddle.
+   - **Subject:**
+
+     Select the most appropriate subject.
+   - **Training Hours:**
+
+     Enter the length of the training.
 4. Select **Save**.
 
-<!-- Image: Express Class menu, Create New Training button, and training detail fields. -->
+   <img class="guide-image" src="https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/express-class/ExpressClass2.png" alt="">
 
 ## Enter the Date and Time
 
 1. Enter the date of the training or huddle.
 2. Enter the time it occurred.
 3. Confirm the time zone.
-4. Select **Next**.
+4. Select
 
-<!-- Image: Express Class completion date, time, and time zone fields. -->
+   **Next**
+
+   .
+
+   <img class="guide-image" src="https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/express-class/ExpressClass3.png" alt="">
 
 ## Add Attendees
 
-1. Select **Add Attendees**.
+1. Select
+
+   **Add Attendees**
+
+   .
+
+   <img class="guide-image" src="https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/express-class/ExpressClassA.png" alt="">
 2. Use the dropdown menu to choose the type of person or organizational unit you want to find.
+
+   <img class="guide-image" src="https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/express-class/ExpressClassB.png" alt="">
 3. Search for the users or organizational unit.
+
+   <img class="guide-image" src="https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/express-class/ExpressClassC.png" alt="">
 4. Check the box next to each correct result.
-5. Select **Save**.
+5. Select
+
+   **Save**
+
+   .
 
 For a large class, you can use **Upload Attendees** and follow the file requirements shown on the page.
-
-<!-- Image: Add Attendees search, organizational unit selector, and selected attendees. -->
 
 ## Record Attendance
 
 1. To record the same result for several attendees, select the learners and choose **Bulk Record**.
 2. Clear the checkbox for any learner who needs a different completion status, score, or training time.
-3. Enter the applicable information:
 
+   <img class="guide-image" src="https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/express-class/ExpressClass20.png" alt="">
+3. Enter the applicable information:
    - Completion status
    - Score, if applicable
    - Observed training hours
 
+     <img class="guide-image" src="https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/express-class/ExpressClass21.png" alt="">
 4. Select **Save**.
 5. Record any exceptions individually.
 6. When every attendee has an attendance result, select **Next**.
-
-<!-- Image: Bulk Record panel and attendee attendance results. -->
 
 ## Review and Submit
 
 1. On the Summary page, review the training details and attendee totals.
 2. Use the edit options if anything needs to be corrected.
-3. When everything is accurate, select **Submit**.
+3. When everything is accurate, select
+
+   **Submit**
+
+   .
 
 ## Notes
 
-- Always select **Create New Training**. Do not use **Search Existing Training**.
-- Review attendee names and completion details carefully before submitting.
-- Contact the LMS team at LMS@fairview.org if you have questions about Express Class or need help correcting a submitted record.
+- Always select
 
-<!-- Source: Express Class Tip Sheet, rev. 4/14/2026. -->
+  **Create New Training**
+
+  . Do not use
+
+  **Search Existing Training**
+
+  .
+- Review attendee names and completion details carefully before submitting.
+- Contact the LMS team at
+
+  [LMS@fairview.org](mailto:LMS@fairview.org)
+
+  if you have questions about Express Class or need help correcting a submitted record.
