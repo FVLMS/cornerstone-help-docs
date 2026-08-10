@@ -19,7 +19,7 @@ This guide will provide an overview of the newly designed and centralized Conten
 
 Open the menu, expand Content Management, click Catalog, and then find the Content Manager:
 
-<img class="guide-image guide-image--phone" src="https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/content-manager-overview/content-manager01.png" alt="">
+<img class="guide-image" src="https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/content-manager-overview/content-manager01.png" alt="">
 
 ## Using the Content Manager
 
@@ -49,18 +49,10 @@ Additionally, you can now save any content as a draft before publishing:
 
 ## Video Guides for Different Content Types
 
-Video Guide for
-
-**Materials**
-
-:
+Video Guide for **Materials**:
 
 <div class="guide-video guide-video--file" tabindex="0"><video controls="" preload="metadata" src="https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/content-manager-overview/DemoMaterial.mp4" tabindex="0"></video></div>
 
-Video Guide for
-
-**Videos**
-
-:
+Video Guide for **Videos**:
 
 <div class="guide-video guide-video--file" tabindex="0"><video controls="" preload="metadata" src="https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/content-manager-overview/DemoVideo.mp4" tabindex="0"></video></div>
