@@ -1,52 +1,76 @@
 ---
-title: "How To: Create Material"
-description: "Step-by-step material creation in Cornerstone."
+title: "Create a Material"
+description: "Add a material learning object in Cornerstone."
 navTitle: "Create Material"
-navSection: "Ongoing Competency 2026"
+navSection: "Content Developer Guides"
 navIcon: "file-plus"
-navOrder: 40
+navOrder: 20
 ---
 
-# How To: Create Material
+# Create a Material
 
-This guide explains how to add a Material to the LMS. Materials can be a standalone learning object for self-enrollment/assignment or part of a Curriculum.
+Use this guide to add a material learning object in Cornerstone. Materials can be assigned on their own or added to a curriculum.
 
-Remember, most Ongoing Competency curriculum will only contain a single material - the introduction. Instead of creating a new one you can copy the **Ongoing Competency 2026: [Site] [Unit/Specialty] - Introduction - [Role]** material and save some time. All you would need to do is:
+## Before You Begin
 
-1. In Cornerstone, from the Catalog > Materials page, copy the Ongoing Competency 2026: [Site] [Unit/Specialty] Introduction - [Role] material
-2. Edit the title
-3. Upload the PDF (Choose File > Upload > Save)
-4. Save the Material without changing anything else
-5. Follow the steps in the How To Create Evaluation article to attach a pre-evaluation to the introduction material: [https://fvlms.github.io/2026-ongoing-competency/how-to-create-evaluation/#attach-the-evaluation-to-a-training-object](https://fvlms.github.io/2026-ongoing-competency/how-to-create-evaluation/#attach-the-evaluation-to-a-training-object)
+- Search for an existing material before creating a new one.
+- Upload documents as PDFs unless the LMS team approves another format.
+- Use clear titles that make the topic and audience easy to identify.
 
----
+## Video Guide
 
-## To create a Material from scratch:
+<div class="guide-video guide-video--file" tabindex="0"><video controls="" preload="metadata" src="https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/create-material/DemoMaterial.mp4" tabindex="0"></video></div>
 
-1. Navigate to *Menu > Content Management > Catalog* and select *Materials*.
-2. Search by keyword to ensure the material does not already exist.
-3. If no current material exists, click Create Material.
-4. Complete required fields:
-   - Title
-   - Material Type: *General*
-   - Provider: *Fairview eLearning*
-   - Description
-   - Material Source (URL or Upload PDF)
-       - For PDFs: Choose File > Upload > Save
-         <img class="guide-image" src="https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/ongoing-competency-2026/create-material-1.png" alt="uploadpdf">
-   - Subject
-6. Leave Availability blank unless this test needs to be added to the catalog for self-enrollment outside of the Ongoing Competency program
-7. select the *Save* button
-8. Follow the steps in the How To Create Evaluation article to attach a pre-evaluation to the introduction material: [https://fvlms.github.io/2026-ongoing-competency/how-to-create-evaluation/#attach-the-evaluation-to-a-training-object](https://fvlms.github.io/2026-ongoing-competency/how-to-create-evaluation/#attach-the-evaluation-to-a-training-object)
+## Steps
 
-## Optional: Add Signature Required
+1. Go to **Menu > Content Management > Catalog > Content Manager**.
+2. Search by keyword to confirm a material on the same topic does not already exist.
+3. If no current material exists, click **Create New Training** and select **Material**.
+4. Complete the required fields:
+   - **Title**
+   - **Description**
 
-This is not reccomended due to the cumbersome workflow. But if you need the learner to sign the material electronically in addition to clicking **Mark Complete**, follow these steps:
+     : add a short description of the material
+   - **Training Duration**
 
-1. Navigate to *Menu > Content Management > Catalog* and select *Course Catalog*.
-2. Search for the material title.
-3. select the *Edit* button.
-4. Scroll to the bottom of the General tab.
-5. Check *Required Electronic Signature*.
-6. The default attestation statement will be used. If you want to use a custom message, enter it in the *Signature Text* field.
-7. select the *Save* button.
+     : add the length of the training
+
+     - to estimate length of a material, take the total word count and divide by 250, rounding down (e.g. 800 words = 3 minutes)
+   - **Subject**
+5. Add the content:
+   - If URL, paste the link
+   - If file, 1) change content type to
+
+     **File**
+
+     and then 2) upload the file
+
+   <img class="guide-image" src="https://mnfhs.sharepoint.com/sites/LearningManagementSystem/Shared%20Documents/cornerstone-help-docs/create-material/CreateMaterial1.png" alt="Material Source options with URL and Upload Material highlighted">
+6. Finish the remaining setup:
+   - **Custom Fields**
+
+     : set Material owner and any other information in the
+
+     **Custom Fields**
+
+     section
+   - **Availability**
+
+     : set to be available to all users by default. If availability should be limited, delete the existing group and add the new availability
+   - **Email**
+
+     : choose the appropriate email behavior for the learning object.
+   - **Signature:**
+
+     If electronic signature should be required, enable the setting in
+
+     **Advanced Settings**
+7. If complete and ready for publishing, click **Publish**. If not, click **Save as Draft**.
+
+## Notes
+
+- Contact the LMS team at
+
+  [LMS@fairview.org](mailto:LMS@fairview.org)
+
+  if you have questions about this process.
